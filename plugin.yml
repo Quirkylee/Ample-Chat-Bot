@@ -1,0 +1,17 @@
+name: BCon
+main: org.jaggy.bukkit.ample.Ample
+version: 1.2
+author: matthewl6970
+commands:
+ ampanswer:
+  description: Sets the response to Question ID.
+  usage: /<command> <QID> <answer>
+  alias: [ampa]
+ ampquestion:
+  description: Adds question or key phrase.
+  usage: /<command> <question or key key phrase>
+  alias: [ampq]
+ ample:
+  description: Displays the help for the plugin.
+  usage: /<command>
+  alias: [ample]
