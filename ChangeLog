@@ -1,3 +1,12 @@
+4/3/2012
+ * made ampquestion command.
+ * added checkConnection() to DB Library
+ * Completed SQLite support
+ 
+3/28/2012
+ * Added general settings to config.
+ * Created db classes and SQLite support.
+ 
 3/26/2012
- - Defined plugin.yml and command definitions.
- - created the plugin defined classes
+ * Defined plugin.yml and command definitions.
+ * created the plugin defined classes

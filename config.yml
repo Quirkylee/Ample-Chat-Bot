@@ -1,0 +1,39 @@
+# Ample Auto Responder - config.yml
+#
+# To enable a feature just uncomment it.
+
+#
+# General Settings
+#
+
+# BotName is what users see in chat as the player name.
+BotName: 'AmpleBot'
+
+# Message Display:
+# %botname = BotName
+# %message = Message the bot sends to players.
+# * Chat Colors are supported!
+Display: '<%botname> %message'
+
+#
+# Database Settings
+#
+
+#  Supports Database types:
+#    - MYSQL
+#    - SQLITE
+
+# SQLite
+DbType: 'SQLITE'
+DbName: 'Ample'
+DbPrefix: 'Ample_'
+DbHost: 'plugins/Ample/'
+
+# MYSQL
+#DbType: MYSQL
+#DbHost: 'localhost'
+#DbPort: 3306
+#DbName: 'minecraft'
+#DbPrefix: 'Ample_'
+#DbUser: 'minecraft'
+#DbPass: ''

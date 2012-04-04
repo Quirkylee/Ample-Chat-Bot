@@ -1,6 +1,6 @@
-name: BCon
+name: Ample
 main: org.jaggy.bukkit.ample.Ample
-version: 1.2
+version: 0.6
 author: matthewl6970
 commands:
  ampanswer:
@@ -14,4 +14,3 @@ commands:
  ample:
   description: Displays the help for the plugin.
   usage: /<command>
-  alias: [ample]
