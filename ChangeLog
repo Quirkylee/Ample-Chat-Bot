@@ -5,6 +5,7 @@
   * added the pcmd: prefix to answers so you can run commands as response as player.
   * added GPL3 license to plugin.
   * expanded database handlers to allow prepared statement with 1 string paramater.
+  * fixed the /qlist bug.
   
 1.1:
  4/17/2012:

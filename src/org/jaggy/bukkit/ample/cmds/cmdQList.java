@@ -60,7 +60,12 @@ public class cmdQList implements CommandExecutor {
 			Integer.parseInt(args[0]);
 			result = db.query("SELECT * FROM "+config.getDbPrefix()+"Responses WHERE id = '"+args[0]+"';");
 		} catch (Exception e) {
-				result = db.query("SELECT * FROM "+config.getDbPrefix()+"Responses WHERE keyphrase LIKE '%"+args[0]+"%';");
+				if(args.length == 0) {
+					result = db.query("SELECT * FROM "+config.getDbPrefix()+"Responses WHERE keyphrase LIKE '%';");
+				
+				} else {
+					result = db.query("SELECT * FROM "+config.getDbPrefix()+"Responses WHERE keyphrase LIKE '%"+args[0]+"%';");
+				}
 		}
 		if(result != null) {
 			try {
