@@ -15,11 +15,8 @@
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 package org.jaggy.bukkit.ample.cmds;
-
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -29,71 +26,42 @@ import org.jaggy.bukkit.ample.Ample;
 import org.jaggy.bukkit.ample.config.Config;
 import org.jaggy.bukkit.ample.db.DB;
 
+public class cmdAmpd implements CommandExecutor {
 
-public class cmdAmpa implements CommandExecutor {
-	
 	private Ample plugin = new Ample();
 	private DB db;
 	private Config config;
 	
-	public cmdAmpa(Ample instance) {
+	public cmdAmpd(Ample instance) {
 		plugin = instance;
 		db = plugin.getDB();
 		config = plugin.getDConfig();
 	}
-	
+
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label,
 			String[] args) {
-		String answer = "";
-		
-		for(int i = 1; i < args.length; i++) {
-			answer += args[i];
-			answer += " ";
-		}
-		answer = answer.trim();
 		if(sender instanceof Player) {
 			Player player = (Player) sender;
-			if( player.hasPermission("ample.edit") ) {
-				try {
-					setAnswer(sender, Integer.parseInt(args[0]), answer);
-				} catch (NumberFormatException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+			if( player.hasPermission("ample.delete") ) {
+			delQuestions(sender, args);	
 			} else plugin.Error(player, "You do not have permissions to use this command.");
 		} else {
-			try {
-				setAnswer(sender, Integer.parseInt(args[0]), answer);
-			} catch (NumberFormatException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			delQuestions(sender, args);
 		}
 		return true;
 	}
-	/**
-	 * Sets the answer to a question ID.
-	 * 
-	 * @param sender
-	 * @param QID
-	 * @param answer
-	 * @throws SQLException
-	 */
-	public void setAnswer(CommandSender sender, Integer QID, String answer) throws SQLException {
-			ResultSet result = db.query("SELECT * FROM "+config.getDbPrefix()+"Responses WHERE id = '"+QID+"';");
-			if(result != null) {
-				db.query("UPDATE "+config.getDbPrefix()+"Responses SET response = '"+answer+"' WHERE id = '"+QID+"';");
-				plugin.Msg(sender, "Answer was set!");
-			}
-			else {
-				plugin.Msg(sender, "Unable to find the id: "+QID);
-			}
+
+	private void delQuestions(CommandSender sender, String[] args) {
+		if(args.length < 1) {
+			plugin.Msg(sender, "Please enter in a Question ID: /delquestion <QID>");
+		} else {
+			db.query("DELETE FROM "+config.getDbPrefix()+"Responses WHERE id = '"+args[0]+"';");
+			plugin.Msg(sender, "Question was deleted.");
+			
+		}
+		
+		
 	}
+
 }

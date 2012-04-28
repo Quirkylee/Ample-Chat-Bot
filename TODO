@@ -1,0 +1,13 @@
+must do:
+- correct /qlist so when people do just /qlist it will print out all the list
+- reconnect command
+
+addon:
+- add the ablity to respond to me commands.
+- add say command.
+- alternate colors on /qlist
+- add usage statistic command for bot and/or player
+- add a bypass permission for anti-abuse routines
+
+suggested addons to consider:
+-  config reload command

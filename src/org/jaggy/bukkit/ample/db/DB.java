@@ -1,6 +1,23 @@
 /**
  * Database Handler:
  * Code is based off of https://github.com/PatPeter/SQLibrary!
+ * 
+ *
+ * Matthewl db handler for Craft Bukkit plugins
+ *   Copyright (C) 2012  matthewl
+
+ *  This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   (at your option) any later version.
+
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.jaggy.bukkit.ample.db;
 
@@ -10,14 +27,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Logger;
 
+import org.bukkit.plugin.Plugin;
+
 public abstract class DB {
 	protected Connection connection;
 	protected Logger log;
 	protected String dbHost;
+	protected String dbPort;
+	protected String dbUser;
+	protected String dbPass;
 	protected String dbName;
 	protected String PREFIX;
 	protected boolean connected;
 	public int lastUpdate;
+	public ResultSet lastKeys;
+	protected Plugin instance;
 	
 	protected enum Statements {
 		SELECT, INSERT, UPDATE, DELETE, DO, REPLACE, LOAD, HANDLER, CALL, // Data manipulation statements
@@ -37,7 +61,8 @@ public abstract class DB {
 		
 	}
 	
-	public DB(Logger log, String dbHost, String dbName, String prefix) {
+	public DB(Plugin Instance, Logger log, String dbHost, String dbName, String prefix) {
+		this.instance = Instance;
 		this.log = log;
 		this.dbHost = dbHost;
 		this.dbName = dbName;
@@ -49,13 +74,19 @@ public abstract class DB {
 	protected abstract boolean initialize();
     public abstract Connection open();
     public abstract void close();
+    public abstract Integer currentEpoch() throws SQLException;
     public abstract void createTables();
     public abstract ResultSet query(String msg);
+    public abstract ResultSet preparedStatement(String query, String param1);
     
+    public void Info(String msg) {
+    	this.log.info("[Ample] "+msg);
+    }
     public void Warn(String msg) {
     	this.log.warning("[Ample] "+msg);
     }
     public void Error(String msg) {
+    	instance.getPluginLoader().disablePlugin(instance);
     	this.log.severe("[Ample] DB error: "+msg);
     }
 
@@ -104,6 +135,24 @@ public abstract class DB {
 			this.connected = true;
 		}
 		return connected;
+		
+	}
+	public int lastID() {
+		int id = 0;
+		try {
+			while (lastKeys.next()) id  = lastKeys.getInt(1);
+			return id;
+		} catch (SQLException e) {
+			return 0;
+		}		
+	}
+	
+	public String escape_quotes(String str) {
+		str = str.replaceAll("\"", "\\\"" );
+		str = str.replaceAll("\'", "\\\'");
+		return str;
+		
+		
 		
 	}
 }

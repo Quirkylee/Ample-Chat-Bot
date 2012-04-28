@@ -1,5 +1,46 @@
+1.2:
+ 4/27/2012:
+  * changed plugin file name do to updater plugins not detecting updated versions.
+  * added the cmd: prefix to answers so you can run commands as response as console.
+  * added the pcmd: prefix to answers so you can run commands as response as player.
+  * added GPL3 license to plugin.
+  * expanded database handlers to allow prepared statement with 1 string paramater.
+  
+1.1:
+ 4/17/2012:
+  * improve db stacktracing for errors.
+  * complete MYSQL DB support.
+  * corrected connection references in checkTable in MYSQL Support and SQLite Support.
+  * added anti-abuse abilities and settings. (Config change)
+  * added requirement to pass the plugin instance to DB Handler constructor.
+  * change the error handling levels on DB handlers.
+  * Added TODO to the jar so you can see what I plan todo with it. 
+  
+1.0b3:
+ 4/10/2012:
+  * add result contains check on listener.
+1.0b2:
+ 4/8/2012
+  * added a minium length to question of 3 or greater. I attempt to prevent false responses.
+  * improved ample help command.
+
+1.0b1:
+
+4/7/2012
+ * added MySQL support
+ * finished the ample command
+ * added lastID to the get the last ID query ran.
+ * added message formating of the response
+ * 
+ 
+4/4/2012
+ * finalize the answer command.
+ * changed the commands to /answer, /question, /qlist, /delquestion, /ample
+ * added ample.edit permission to /answer, qlist, and /questions
+ * created qlist command.
+ 
 4/3/2012
- * made ampquestion command.
+ * made question command.
  * added checkConnection() to DB Library
  * Completed SQLite support
  

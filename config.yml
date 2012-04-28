@@ -11,9 +11,28 @@ BotName: 'AmpleBot'
 
 # Message Display:
 # %botname = BotName
+# %player = Player invoking the question
 # %message = Message the bot sends to players.
-# * Chat Colors are supported!
+# * Chat Colors and formating is supported!
 Display: '<%botname> %message'
+
+# Response Delay
+# Allows you to set how long the bot will wait to respond in server ticks.
+#   - The Default is 2 server ticks.
+#   - There are 20 ticks per second.
+Delay: 2
+
+
+#
+# Anti-Abuse Settings For Bot:
+# Protects bot from people looking to abuse it.
+#
+# AbuseRatio: Triggered Responses;seconds
+# Action: kick|ignore
+# kickMsg: reason for kicking them.
+AbuseRatio: 5;10
+AbuseAction: ignore
+AbuseKick: '[AmpleBot] Do not abuse me or I will keep kicking you!'
 
 #
 # Database Settings

@@ -1,3 +1,20 @@
+/**
+ * Matthewl db handler for Craft Bukkit plugins
+ *   Copyright (C) 2012  matthewl
+
+ *  This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   (at your option) any later version.
+
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.jaggy.bukkit.ample.db;
 
 import java.io.File;
@@ -5,17 +22,21 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Logger;
 
+import org.bukkit.plugin.Plugin;
+
 public class SQLITE extends DB {
 	
 	private File sqlFile;
 
-	public SQLITE(Logger log, String dbHost, String dbName, String prefix) {
-		super(log, dbHost, dbName, prefix);
+	public SQLITE(Plugin instance, Logger log, String dbHost, String dbName, String prefix) {
+		super(instance, log, dbHost, dbName, prefix);
+		this.instance = instance;
 		this.log = log;
 		this.dbHost = dbHost;
 		this.dbName = dbName;
@@ -41,15 +62,13 @@ public class SQLITE extends DB {
 	@Override
 	public void createTables() {
 		if(this.checkTable(this.PREFIX+"Responses") == false) {
-		 ResultSet result = this.query("CREATE TABLE \""+this.PREFIX+
+		 this.query("CREATE TABLE \""+this.PREFIX+
 				"Responses\" (\"id\" integer NOT NULL ON CONFLICT FAIL PRIMARY KEY AUTOINCREMENT,"+
 				 "\"keyphrase\" text(200,0), \"response\" text(200,0));");
-		try {
-			result.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			this.Error("DB error: "+e);
 		}
+		if(this.checkTable(this.PREFIX+"Usage") == false) {
+			this.query("CREATE TABLE \""+this.PREFIX+"Usage\" (\"dtime\" integer, \"question\" integer," +
+					"\"player\" text(50,0));");
 		}
 	}
 	
@@ -92,6 +111,7 @@ public class SQLITE extends DB {
 			    case HANDLER:
 			    case CALL:
 			    	this.lastUpdate = statement.executeUpdate(query);
+			    	this.lastKeys = statement.getGeneratedKeys();
 			    	break;
 				
 				default:
@@ -102,13 +122,54 @@ public class SQLITE extends DB {
 			if (e.getMessage().toLowerCase().contains("locking") || e.getMessage().toLowerCase().contains("locked")) {
 				return retry(query);
 			} else {
-				this.Error("SQL exception in query(): " + e.getMessage());
+				e.printStackTrace();
+				this.Warn("SQL exception in query(): " + e.getMessage());
 			}
 			
 		}
 		return null;
 	}
-
+	
+	@Override
+	public ResultSet preparedStatement(String query, String param1) {
+		PreparedStatement statement = null;
+		ResultSet result = null;
+		try {
+			connection = this.getConnection();
+			statement = connection.prepareStatement(query);
+			statement.setNString(1, param1);
+			switch (this.getStatement(query)) {
+			case SELECT:
+				result = statement.executeQuery(query);
+				break;
+			
+		    case INSERT:
+		    case UPDATE:
+		    case DELETE:	
+		    case CREATE:
+		    case ALTER:
+		    case DROP:
+		    case TRUNCATE:
+		    case RENAME:
+		    case DO:
+		    case REPLACE:
+		    case LOAD:
+		    case HANDLER:
+		    case CALL:
+		    	this.lastUpdate = statement.executeUpdate(query);
+		    	this.lastKeys = statement.getGeneratedKeys();
+		    	break;
+			
+			default:
+				result = statement.executeQuery(query);
+			}
+	    	return result;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			this.Warn("Error in SQL query: " + e.getMessage());
+		}
+		return result;
+	}
 
 	@Override
 	public void close() {
@@ -124,7 +185,7 @@ public class SQLITE extends DB {
 	public boolean checkTable(String table) {
 		DatabaseMetaData dbm = null;
 		try {
-			dbm = this.open().getMetaData();
+			dbm = this.connection.getMetaData();
 			ResultSet tables = dbm.getTables(null, null, table, null);
 			if (tables.next())
 			  return true;
@@ -143,7 +204,7 @@ public class SQLITE extends DB {
 			  
 			  return true;
 			} catch (ClassNotFoundException e) {
-			  log.severe("Class not found in initialize(): " + e.getMessage());
+				this.Error("Class not found in initialize(): " + e.getMessage());
 			  return false;
 			}
 	}
@@ -160,11 +221,19 @@ public class SQLITE extends DB {
 			if (ex.getMessage().toLowerCase().contains("locking") || ex.getMessage().toLowerCase().contains("locked")) {
 				this.Error("Please close your previous ResultSet to run the query: \n\t" + query);
 			} else {
-				this.Error("SQL exception in retry(): " + ex.getMessage());
+				this.Warn("SQL exception in retry(): " + ex.getMessage());
 			}
 		}
 
 		return null;
+	}
+
+	@Override
+	public Integer currentEpoch() throws SQLException {
+		connection = this.getConnection();
+		Statement statement = connection.createStatement();
+		ResultSet rs = statement.executeQuery("SELECT strftime('%s','now');");
+		return rs.getInt(1);
 	}
 	
 }
