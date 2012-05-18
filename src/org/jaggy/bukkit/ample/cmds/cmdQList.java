@@ -61,10 +61,10 @@ public class cmdQList implements CommandExecutor {
 			result = db.query("SELECT * FROM "+config.getDbPrefix()+"Responses WHERE id = '"+args[0]+"';");
 		} catch (Exception e) {
 				if(args.length == 0) {
-					result = db.query("SELECT * FROM "+config.getDbPrefix()+"Responses WHERE keyphrase LIKE '%';");
+					result = db.query("SELECT * FROM "+config.getDbPrefix()+"Responses WHERE keyphrase LIKE '%'  ESCAPE \"|\";");
 				
 				} else {
-					result = db.query("SELECT * FROM "+config.getDbPrefix()+"Responses WHERE keyphrase LIKE '%"+args[0]+"%';");
+					result = db.query("SELECT * FROM "+config.getDbPrefix()+"Responses WHERE keyphrase LIKE '%"+db.escape_quotes(args[0])+"%';");
 				}
 		}
 		if(result != null) {
@@ -73,8 +73,8 @@ public class cmdQList implements CommandExecutor {
 					String id = result.getString("id");
 					String question = result.getString("keyphrase");
 					String response = result.getString("response");
-					plugin.Msg(sender, "["+id+"] Q:"+question);
-					plugin.Msg(sender, "    A:"+response);
+					plugin.Msg(sender, "["+id+"] Q:"+db.unescape(question));
+					plugin.Msg(sender, "    A:"+db.unescape(response));
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();

@@ -48,6 +48,7 @@ public class Ample extends JavaPlugin {
 		log.info("[Ample] "+msg);
 	}
 	
+	@Override
 	public void onEnable() {
 		loadConfig();
 		if(config.getDbType().equals("SQLITE")) {
@@ -78,6 +79,7 @@ public class Ample extends JavaPlugin {
 		
 	}
 
+	@Override
 	public void onDisable() {
 		db.close();
 	}

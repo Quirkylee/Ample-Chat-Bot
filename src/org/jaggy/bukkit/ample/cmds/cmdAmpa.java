@@ -89,7 +89,7 @@ public class cmdAmpa implements CommandExecutor {
 	public void setAnswer(CommandSender sender, Integer QID, String answer) throws SQLException {
 			ResultSet result = db.query("SELECT * FROM "+config.getDbPrefix()+"Responses WHERE id = '"+QID+"';");
 			if(result != null) {
-				db.query("UPDATE "+config.getDbPrefix()+"Responses SET response = '"+answer+"' WHERE id = '"+QID+"';");
+				db.query("UPDATE "+config.getDbPrefix()+"Responses SET response = \""+answer+"\" WHERE id = '"+QID+"';");
 				plugin.Msg(sender, "Answer was set!");
 			}
 			else {

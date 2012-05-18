@@ -122,7 +122,6 @@ public class SQLITE extends DB {
 			if (e.getMessage().toLowerCase().contains("locking") || e.getMessage().toLowerCase().contains("locked")) {
 				return retry(query);
 			} else {
-				e.printStackTrace();
 				this.Warn("SQL exception in query(): " + e.getMessage());
 			}
 			
@@ -165,7 +164,6 @@ public class SQLITE extends DB {
 			}
 	    	return result;
 		} catch (SQLException e) {
-			e.printStackTrace();
 			this.Warn("Error in SQL query: " + e.getMessage());
 		}
 		return result;

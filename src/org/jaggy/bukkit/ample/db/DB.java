@@ -86,7 +86,6 @@ public abstract class DB {
     	this.log.warning("[Ample] "+msg);
     }
     public void Error(String msg) {
-    	instance.getPluginLoader().disablePlugin(instance);
     	this.log.severe("[Ample] DB error: "+msg);
     }
 
@@ -148,8 +147,28 @@ public abstract class DB {
 	}
 	
 	public String escape_quotes(String str) {
-		str = str.replaceAll("\"", "\\\"" );
-		str = str.replaceAll("\'", "\\\'");
+		String target = "\"";
+		
+		String replacement = "\"\"";
+		str = str.replaceAll(target, replacement);
+		
+		target = "'";
+		replacement = "''";
+		str = str.replaceAll(target, replacement);
+		return str;
+		
+		
+		
+	}
+	public String unescape(String str) {
+		String target = "\"\"";
+		
+		String replacement = "\"";
+		str = str.replaceAll(target, replacement);
+		
+		target = "''";
+		replacement = "'";
+		str = str.replaceAll(target, replacement);
 		return str;
 		
 		

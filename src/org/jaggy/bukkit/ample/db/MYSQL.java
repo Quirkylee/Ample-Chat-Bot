@@ -144,7 +144,6 @@ public class MYSQL extends DB {
 		    //connection.close();
 	    	return result;
 		} catch (SQLException e) {
-			e.printStackTrace();
 			this.Warn("Error in SQL query: " + e.getMessage());
 		}
 		return result;
@@ -161,7 +160,6 @@ public class MYSQL extends DB {
 			else
 			  return false;
 		} catch (SQLException e) {
-			e.printStackTrace();
 			this.Error("Failed to check if table \"" + table + "\" exists: " + e.getMessage());
 			return false;
 		}

@@ -1,9 +1,14 @@
+1.3:
+  * reduced error stack printout.
+  * quotes sql error. (Supports single quotes.)
+  * added numerical wildcards: %1-%200
 1.2:
  4/27/2012:
   * changed plugin file name do to updater plugins not detecting updated versions.
   * added the cmd: prefix to answers so you can run commands as response as console.
   * added the pcmd: prefix to answers so you can run commands as response as player.
   * added GPL3 license to plugin.
+  * added the ability to set the delay in bot responses.
   * expanded database handlers to allow prepared statement with 1 string paramater.
   * fixed the /qlist bug.
   

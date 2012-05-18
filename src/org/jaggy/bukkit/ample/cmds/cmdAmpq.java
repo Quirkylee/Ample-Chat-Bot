@@ -77,7 +77,7 @@ public class cmdAmpq implements CommandExecutor {
 	private void addQuestion(CommandSender sender, String question) throws SQLException {
 		if(question.length() >= 3) {
 
-		if(db.query("INSERT INTO "+config.getDbPrefix()+"Responses (keyphrase,response) VALUES ('"+question.toLowerCase()+"','');") != null) 
+		if(db.query("INSERT INTO "+config.getDbPrefix()+"Responses (keyphrase,response) VALUES ('"+db.escape_quotes(question.toLowerCase())+"','');") != null) 
 			plugin.Msg(sender, "Db error: Failed to add the question.");
 		else
 			plugin.Msg(sender, "Question ID: "+db.lastID());
