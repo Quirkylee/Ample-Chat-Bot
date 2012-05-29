@@ -108,6 +108,14 @@ public class YMLFile implements Config {
 	public Long getMsgDelay() {
 		return bukkitConfig.getLong("Delay", defaultMsgDelay);
 	}
+
+	/* (non-Javadoc)
+	 * @see org.jaggy.bukkit.ample.config.Config#getAllowable()
+	 */
+	@Override
+	public Double getAllowable() {
+		return bukkitConfig.getDouble("Allowable", defaultAllowable);
+	}
 	
 
 }

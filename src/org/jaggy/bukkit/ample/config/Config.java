@@ -12,7 +12,8 @@ public interface Config {
 	public String defaultDbUser = "Ample";
 	public String defaultDbPass = "Minecraft";
 	public String defaultBotName = "AmpleBot";
-	public String defaultAbuseRatio = "5;10";
+	public String defaultAbuseRatio = "3;20";
+	public double defaultAllowable = 80;
 	public String defaultAbuseAction = "ignore";
 	public String defaultAbuseKick = "[AmpleBot] Do not abuse me or I will keep kicking you!";
 	public String defaultDisplay = "<%botname> %message";
@@ -29,6 +30,7 @@ public interface Config {
 	public String getDbPass();
 	public String getBotName();
 	public Integer[] getAbuseRatio();
+	public Double getAllowable();
 	public String getAbuseAction();
 	public String getAbuseKick();
 	public String getDisplay();

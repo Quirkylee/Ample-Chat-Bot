@@ -1,7 +1,13 @@
-1.3:
+1.2.6:
   * reduced error stack printout.
   * quotes sql error. (Supports single quotes.)
   * added numerical wildcards: %1-%200
+  * changed response system to smart comparing system
+  * add the ablity to do multiple things in response with the ; delimiter
+  * added pm: prefix to allow private messaging to the player
+  * added chat: prefix to force player to say something in chat
+  * fixed botname formating 
+  
 1.2:
  4/27/2012:
   * changed plugin file name do to updater plugins not detecting updated versions.

@@ -1,6 +1,6 @@
 name: Ample
 main: org.jaggy.bukkit.ample.Ample
-version: 1.3
+version: 1.2.6
 author: matthewl6970
 commands:
  answer:

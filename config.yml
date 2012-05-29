@@ -22,6 +22,11 @@ Display: '<%botname> %message'
 #   - There are 20 ticks per second.
 Delay: 2
 
+# Acceptable response rate in percentage:
+# Acceptable range 0-100
+# Anything greater then the percentage will be the response,
+Allowable: 80
+
 
 #
 # Anti-Abuse Settings For Bot:
@@ -30,7 +35,7 @@ Delay: 2
 # AbuseRatio: Triggered Responses;seconds
 # Action: kick|ignore
 # kickMsg: reason for kicking them.
-AbuseRatio: 5;10
+AbuseRatio: 3;20
 AbuseAction: ignore
 AbuseKick: '[AmpleBot] Do not abuse me or I will keep kicking you!'
 
