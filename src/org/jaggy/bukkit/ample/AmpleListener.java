@@ -54,6 +54,7 @@ public class AmpleListener implements Listener {
 			message = ChatColor.stripColor(event.getMessage()).toLowerCase();
 			if(message.length() >= 3) {
 				ResultSet result = db.query("SELECT * FROM "+config.getDbPrefix()+"Responses ORDER BY keyphrase DESC;");
+				if(result != null) {
 					    TreeMap<Double,TreeMap<Integer,String>> rank = new TreeMap<Double,TreeMap<Integer,String>>();
 						try {
 							while(result.next()) {
@@ -91,6 +92,7 @@ public class AmpleListener implements Listener {
 							e.printStackTrace();
 						}
 						}
+				}
 			}
 		}
 	}

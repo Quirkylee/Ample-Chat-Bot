@@ -19,6 +19,7 @@
 package org.jaggy.bukkit.ample;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.logging.Logger;
 
 import org.bukkit.ChatColor;
@@ -36,6 +37,7 @@ import org.jaggy.bukkit.ample.config.YMLFile;
 import org.jaggy.bukkit.ample.db.DB;
 import org.jaggy.bukkit.ample.db.MYSQL;
 import org.jaggy.bukkit.ample.db.SQLITE;
+import org.mcstats.Metrics;
 
 public class Ample extends JavaPlugin {
 
@@ -50,6 +52,14 @@ public class Ample extends JavaPlugin {
 	
 	@Override
 	public void onEnable() {
+		//mcstats plugin
+		try {
+		    Metrics metrics = new Metrics(this);
+		    metrics.start();
+		} catch (IOException e) {
+		    // Failed to submit the stats :-(
+		}
+		
 		loadConfig();
 		if(config.getDbType().equals("SQLITE")) {
 			db = new SQLITE(this, log,config.getDbHost(),config.getDbName()+".db",config.getDbPrefix());
