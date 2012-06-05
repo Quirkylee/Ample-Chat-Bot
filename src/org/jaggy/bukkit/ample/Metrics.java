@@ -1,4 +1,4 @@
-package org.mcstats;
+package org.jaggy.bukkit.ample;
 /*
  * Copyright 2011 Tyler Blair. All rights reserved.
  *

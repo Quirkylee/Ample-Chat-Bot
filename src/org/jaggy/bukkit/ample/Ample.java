@@ -37,7 +37,6 @@ import org.jaggy.bukkit.ample.config.YMLFile;
 import org.jaggy.bukkit.ample.db.DB;
 import org.jaggy.bukkit.ample.db.MYSQL;
 import org.jaggy.bukkit.ample.db.SQLITE;
-import org.mcstats.Metrics;
 
 public class Ample extends JavaPlugin {
 
