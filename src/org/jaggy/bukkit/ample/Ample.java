@@ -27,6 +27,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jaggy.bukkit.ample.MetricsLite;
 import org.jaggy.bukkit.ample.cmds.cmdAmpa;
 import org.jaggy.bukkit.ample.cmds.cmdAmpd;
 import org.jaggy.bukkit.ample.cmds.cmdAmple;
@@ -53,9 +54,10 @@ public class Ample extends JavaPlugin {
 	public void onEnable() {
 		//mcstats plugin
 		try {
-		    Metrics metrics = new Metrics(this);
+		    MetricsLite metrics = new MetricsLite(this);
 		    metrics.start();
 		} catch (IOException e) {
+			e.printStackTrace();
 		    // Failed to submit the stats :-(
 		}
 		
