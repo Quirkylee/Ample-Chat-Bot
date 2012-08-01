@@ -32,8 +32,10 @@ Allowable: 80
 # Anti-Abuse Settings For Bot:
 # Protects bot from people looking to abuse it.
 #
+# Mute requires Essentials
+#
 # AbuseRatio: Triggered Responses;seconds
-# Action: kick|ignore
+# Action: kick|mute|ignore
 # kickMsg: reason for kicking them.
 AbuseRatio: 3;20
 AbuseAction: ignore

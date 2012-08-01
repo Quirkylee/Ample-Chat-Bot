@@ -55,43 +55,45 @@ public class AmpleListener implements Listener {
 			if(message.length() >= 3) {
 				ResultSet result = db.query("SELECT * FROM "+config.getDbPrefix()+"Responses ORDER BY keyphrase DESC;");
 				if(result != null) {
-					    TreeMap<Double,TreeMap<Integer,String>> rank = new TreeMap<Double,TreeMap<Integer,String>>();
-						try {
-							while(result.next()) {
-								String response = result.getString("keyphrase").toLowerCase();
-								double reslength = response.length();
-								double msglength = message.length();
-								double rel;
-								if(reslength >= msglength) rel = ((msglength/reslength)*100);
-								else rel = ((reslength/msglength)*100);
-								String[] mary = message.split(" ");
-								double count = 0;
-								for(int i=0;i < mary.length;i++) {
-									if(response.contains(mary[i])) count ++;
-								}
-								double wordrel;
-								if (count <= mary.length) wordrel = ((count/mary.length)*100);
-								else wordrel = ((mary.length/count)*100);
-								double avgrel = ((wordrel+rel)/2);
-								TreeMap<Integer,String> temp = new TreeMap<Integer,String>();
-								temp.put(result.getInt("id"), result.getString("response"));
-								rank.put(avgrel, temp);
-								
+					TreeMap<Double,TreeMap<Integer,String>> rank = new TreeMap<Double,TreeMap<Integer,String>>();
+					try {
+						while(result.next()) {
+							String response = result.getString("keyphrase").toLowerCase();
+							double reslength = response.length();
+							double msglength = message.length();
+							double rel;
+							if(reslength >= msglength) rel = ((msglength/reslength)*100);
+							else rel = ((reslength/msglength)*100);
+							String[] mary = message.split(" ");
+							double count = 0;
+							for(int i=0;i < mary.length;i++) {
+								if(response.contains(mary[i])) count ++;
 							}
-						} catch (SQLException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+							double wordrel;
+							if (count <= mary.length) wordrel = ((count/mary.length)*100);
+							else wordrel = ((mary.length/count)*100);
+							double avgrel = ((wordrel+rel)/2);
+							TreeMap<Integer,String> temp = new TreeMap<Integer,String>();
+							temp.put(result.getInt("id"), result.getString("response"));
+							rank.put(avgrel, temp);
+
 						}
-						Entry<Double, TreeMap<Integer, String>> highest = rank.lastEntry();
-						TreeMap<Integer, String> value = highest.getValue();
-						if(highest.getKey() > config.getAllowable()) {
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					plugin.loger("test "+rank.lastEntry().getValue()); //error here
+					Entry<Double, TreeMap<Integer, String>> highest = rank.lastEntry();
+
+					TreeMap<Integer, String> value = highest.getValue();
+					if(highest.getKey() > config.getAllowable()) {
 						try {
 							execute(value, event);
 						} catch (SQLException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-						}
+					}
 				}
 			}
 		}
@@ -146,52 +148,15 @@ public class AmpleListener implements Listener {
 		}
 	}
 
-	/**
-	 * @param result
-	 * @throws SQLException 
-	 */
-	/*
-	private void execute(final ResultSet result, final PlayerChatEvent event) throws SQLException {
-		
-		
-		
-	}
-*/
 	public String setDisplay(String display, String message, String botname) {
 		String str = display.replaceAll("%botname", botname);	
 		return str.replaceAll("%message", message);
 	}
 	public static String formatChat(String chat, PlayerChatEvent event)
 	{
-		// Weight & Style
-		chat = chat.replaceAll("&l", ChatColor.BOLD + "");
-		chat = chat.replaceAll("&o", ChatColor.ITALIC + "");
-		chat = chat.replaceAll("&n", ChatColor.UNDERLINE + "");
-		chat = chat.replaceAll("&m", ChatColor.STRIKETHROUGH + "");
+		//format chat
+		chat = ChatColor.translateAlternateColorCodes('&',chat);
 
-		// Reset
-		chat = chat.replaceAll("&r", ChatColor.RESET + "");
-
-		// Colours
-		chat = chat.replaceAll("&0", ChatColor.BLACK + "");
-		chat = chat.replaceAll("&1", ChatColor.DARK_BLUE + "");
-		chat = chat.replaceAll("&2", ChatColor.DARK_GREEN + "");
-		chat = chat.replaceAll("&3", ChatColor.DARK_AQUA + "");
-		chat = chat.replaceAll("&4", ChatColor.DARK_RED + "");
-		chat = chat.replaceAll("&5", ChatColor.DARK_PURPLE + "");
-		chat = chat.replaceAll("&6", ChatColor.GOLD + "");
-		chat = chat.replaceAll("&7", ChatColor.GRAY + "");
-		chat = chat.replaceAll("&8", ChatColor.DARK_GRAY + "");
-		chat = chat.replaceAll("&9", ChatColor.BLUE + "");
-		chat = chat.replaceAll("&a", ChatColor.GREEN + "");
-		chat = chat.replaceAll("&b", ChatColor.AQUA + "");
-		chat = chat.replaceAll("&c", ChatColor.RED + "");
-		chat = chat.replaceAll("&d", ChatColor.LIGHT_PURPLE + "");
-		chat = chat.replaceAll("&e", ChatColor.YELLOW + "");
-		chat = chat.replaceAll("&f", ChatColor.WHITE + "");
-
-		// Magic
-		chat = chat.replaceAll("&k", ChatColor.MAGIC + "");
 		//set wildcards
 		chat = chat.replaceAll("%player", event.getPlayer().getName());
 		

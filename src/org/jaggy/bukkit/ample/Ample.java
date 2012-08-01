@@ -25,6 +25,7 @@ import java.util.logging.Logger;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jaggy.bukkit.ample.MetricsLite;
@@ -45,6 +46,7 @@ public class Ample extends JavaPlugin {
 	public final Logger log = Logger.getLogger("Minecraft");
 	private Config config;
 	private DB db = null;
+	public boolean essentialsEnable = false;
 	
 	public void loger(String msg) {
 		log.info("[Ample] "+msg);
@@ -60,8 +62,18 @@ public class Ample extends JavaPlugin {
 			e.printStackTrace();
 		    // Failed to submit the stats :-(
 		}
-		
+		//load config
 		loadConfig();
+		
+		//test for essentials
+		Plugin essentials = this.getServer().getPluginManager().getPlugin("Essentials");
+	    if( essentials != null )
+	    {
+	        loger("Essentials found.....");
+	        essentialsEnable  = true;
+	    }
+		
+		//initialize db
 		if(config.getDbType().equals("SQLITE")) {
 			db = new SQLITE(this, log,config.getDbHost(),config.getDbName()+".db",config.getDbPrefix());
 			loger("Using SQLite db...");
