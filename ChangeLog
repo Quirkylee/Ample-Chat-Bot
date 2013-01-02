@@ -1,6 +1,14 @@
-1.3:
+1.2.8:
+  * cleaned up chat formating method to use ChatColor methods
+  * renamed plugin to AmpleChatBot in plugin.yml
+  * Lick99 helped me update the plugin and cleaned the bin files
+  * I have fixed depreciated bukkit api references
+  * I have fixed aliases typo in plugin.yml so there is aliases now listed on commands page
+  
+1.2.7:
   * fixed result error when no questions was entered.
   * implemented metrics statistics to help promote plugin and help learn plugin usage.
+  * added none operator to answers to null out bad responses.
   
   
 1.2.6:

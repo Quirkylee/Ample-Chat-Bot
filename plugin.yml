@@ -1,25 +1,25 @@
 name: AmpleChatBot
 main: org.jaggy.bukkit.ample.Ample
 version: 1.2.8
-author: matthewl6970
+author: matthewl6970, licks92
 softdepend: [Essentials]
 commands:
  answer:
   description: Sets the response to Question ID.
   usage: /<command> <QID> <answer>
-  alias: [ampa]
+  aliases: [ampa, aa]
  question:
   description: Adds question or key phrase.
   usage: /<command> <question or key phrase>
-  alias: [ampq]
+  aliases: [ampq, aq]
  qlist:
   description: lists question or key phrase.
   usage: /<command> [QID][question][keyphrase]
-  alias: [ampl]
+  aliases: [ampl, al]
  delquestion:
   description: deletes questions or key phrases.
   usage: /<command> <QID>
-  alias: [ampd]
+  aliases: [ampd, ad]
  ample:
   description: Displays the help for the Ample plugin.
   usage: /<command>
