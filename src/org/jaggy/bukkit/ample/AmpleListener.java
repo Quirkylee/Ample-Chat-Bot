@@ -31,7 +31,7 @@ import org.bukkit.command.CommandException;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerChatEvent;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.jaggy.bukkit.ample.config.Config;
 import org.jaggy.bukkit.ample.db.DB;
 
@@ -49,7 +49,7 @@ public class AmpleListener implements Listener {
 
 	
 	@EventHandler(priority = EventPriority.LOWEST)
-	void onChat(final PlayerChatEvent event) {
+	void onChat(final AsyncPlayerChatEvent event) {
 		if( event.getPlayer().hasPermission("ample.invoke") ) {
 			message = ChatColor.stripColor(event.getMessage()).toLowerCase();
 			if(message.length() >= 3) {
@@ -76,13 +76,16 @@ public class AmpleListener implements Listener {
 							TreeMap<Integer,String> temp = new TreeMap<Integer,String>();
 							temp.put(result.getInt("id"), result.getString("response"));
 							rank.put(avgrel, temp);
-
 						}
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					plugin.loger("test "+rank.lastEntry().getValue()); //error here
+					try {
+						plugin.loger("test "+rank.lastEntry().getValue());
+					} catch (NullPointerException ex) { // If no question / answer exists in the database, then skip.
+						return;
+					}
 					Entry<Double, TreeMap<Integer, String>> highest = rank.lastEntry();
 
 					TreeMap<Integer, String> value = highest.getValue();
@@ -103,7 +106,7 @@ public class AmpleListener implements Listener {
 	 * @param event
 	 * @throws SQLException 
 	 */
-	private void execute(TreeMap<Integer, String> value, final PlayerChatEvent event) throws SQLException {
+	private void execute(TreeMap<Integer, String> value, final AsyncPlayerChatEvent event) throws SQLException {
 		final String response = value.firstEntry().getValue();
 		int id = value.firstEntry().getKey();
 		db.query("INSERT INTO "+config.getDbPrefix()+"Usage (player,dtime,question) " +
@@ -117,7 +120,7 @@ public class AmpleListener implements Listener {
 				final String line = newline[a];
 				String fresponse = formatChat(setDisplay(config.getDisplay(), line, config.getBotName()), event);
 				final String fmsg = fresponse;
-			plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+			plugin.getServer().getScheduler().runTaskLater(plugin, new Runnable() {
 
 				@Override
 				public void run() {
@@ -152,7 +155,7 @@ public class AmpleListener implements Listener {
 		String str = display.replaceAll("%botname", botname);	
 		return str.replaceAll("%message", message);
 	}
-	public static String formatChat(String chat, PlayerChatEvent event)
+	public static String formatChat(String chat, AsyncPlayerChatEvent event)
 	{
 		//format chat
 		chat = ChatColor.translateAlternateColorCodes('&',chat);
