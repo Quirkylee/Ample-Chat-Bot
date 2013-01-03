@@ -1,7 +1,7 @@
 1.2.8:
   * cleaned up chat formating method to use ChatColor methods
   * renamed plugin to AmpleChatBot in plugin.yml
-  * Lick99 helped me update the plugin and cleaned the bin files
+  * Lick92 helped me update the plugin
   * I have fixed depreciated bukkit api references
   * I have fixed aliases typo in plugin.yml so there is aliases now listed on commands page
   

@@ -53,7 +53,7 @@ AbuseKick: '[AmpleBot] Do not abuse me or I will keep kicking you!'
 DbType: 'SQLITE'
 DbName: 'Ample'
 DbPrefix: 'Ample_'
-DbHost: 'plugins/Ample/'
+DbHost: 'plugins/AmpleChatBot/'
 
 # MYSQL
 #DbType: MYSQL

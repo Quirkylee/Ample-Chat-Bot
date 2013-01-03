@@ -82,7 +82,6 @@ public class AmpleListener implements Listener {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					plugin.loger("test "+rank.lastEntry().getValue()); //error here
 					Entry<Double, TreeMap<Integer, String>> highest = rank.lastEntry();
 
 					TreeMap<Integer, String> value = highest.getValue();

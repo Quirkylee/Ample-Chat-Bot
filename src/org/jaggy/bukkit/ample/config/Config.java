@@ -5,7 +5,7 @@ import org.jaggy.bukkit.ample.Ample;
 
 public interface Config {
 	public String defaultDbType = "SQLITE";
-	public String defaultDbHost = "plugins/Ample/";
+	public String defaultDbHost = "plugins/AmpleChatBot/";
 	public String defaultDbPort= "";
 	public String defaultDbName = "Ample.db";
 	public String defaultDbPrefix = "Ample_";
