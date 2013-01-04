@@ -30,8 +30,8 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jaggy.bukkit.ample.MetricsLite;
 import org.jaggy.bukkit.ample.cmds.CmdSay;
-import org.jaggy.bukkit.ample.cmds.CmdAmpa;
-import org.jaggy.bukkit.ample.cmds.CmdAmpd;
+import org.jaggy.bukkit.ample.cmds.CmdAnswer;
+import org.jaggy.bukkit.ample.cmds.CmdDelete;
 import org.jaggy.bukkit.ample.cmds.CmdAmple;
 import org.jaggy.bukkit.ample.cmds.CmdQuestion;
 import org.jaggy.bukkit.ample.cmds.CmdQList;
@@ -95,10 +95,10 @@ public class Ample extends JavaPlugin {
 		pm.registerEvents(new AmpleListener(this), this);
 		
 		getCommand("ample").setExecutor(new CmdAmple(this));
-		getCommand("answer").setExecutor(new CmdAmpa(this));
+		getCommand("answer").setExecutor(new CmdAnswer(this));
 		getCommand("qlist").setExecutor(new CmdQList(this));
 		getCommand("question").setExecutor(new CmdQuestion(this));
-		getCommand("delquestion").setExecutor(new CmdAmpd(this));
+		getCommand("delquestion").setExecutor(new CmdDelete(this));
 		getCommand("amplesay").setExecutor(new CmdSay(this));
 		
 		
