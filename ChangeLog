@@ -1,3 +1,8 @@
+1.2.9:
+  * Made and moved chat formating into a Util class
+  * Added a say command
+
+
 1.2.8:
   * cleaned up chat formating method to use ChatColor methods
   * renamed plugin to AmpleChatBot in plugin.yml

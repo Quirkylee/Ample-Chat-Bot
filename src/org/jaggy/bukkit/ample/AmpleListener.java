@@ -19,10 +19,7 @@ package org.jaggy.bukkit.ample;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 import java.util.TreeMap;
 
 import org.bukkit.Bukkit;
@@ -34,8 +31,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.jaggy.bukkit.ample.config.Config;
 import org.jaggy.bukkit.ample.db.DB;
+import org.jaggy.bukkit.ample.utils.FormatChat;
 
-@SuppressWarnings("unused")
 public class AmpleListener implements Listener {
 	private Ample plugin;
 	private static Config config;
@@ -114,7 +111,7 @@ public class AmpleListener implements Listener {
 			String[] newline = response.split(";");
 			for(int a=0;a < newline.length;a++) {
 				final String line = newline[a];
-				String fresponse = formatChat(setDisplay(config.getDisplay(), line, config.getBotName()), event);
+				String fresponse = FormatChat.formatChat(FormatChat.setDisplay(config.getDisplay(), line, config.getBotName()), event);
 				final String fmsg = fresponse;
 			plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
 
@@ -123,15 +120,15 @@ public class AmpleListener implements Listener {
 					try {
 						if(line.length() > 4 && line.toLowerCase().substring(0, 4).equals("cmd:")) {
 							String cmd = db.unescape(line.toLowerCase().substring(4));
-							Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(),formatChat(cmd.trim(),event));
+							Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(),FormatChat.formatChat(cmd.trim(),event));
 						} else if(line.length() > 5 && line.toLowerCase().substring(0, 5).equals("pcmd:")) {
 							String cmd = db.unescape(line.toLowerCase().substring(5));
-							Bukkit.getServer().dispatchCommand(event.getPlayer(),formatChat(cmd.trim(),event));
+							Bukkit.getServer().dispatchCommand(event.getPlayer(),FormatChat.formatChat(cmd.trim(),event));
 						} else if(line.length() > 3 && line.toLowerCase().substring(0, 3).equals("pm:")) {
 							plugin.loger("pm to "+event.getPlayer().getDisplayName()+": "+line.substring(3));
-							event.getPlayer().sendMessage(formatChat(setDisplay(config.getDisplay(),db.unescape(line.substring(3)), config.getBotName()), event));
+							event.getPlayer().sendMessage(FormatChat.formatChat(FormatChat.setDisplay(config.getDisplay(),db.unescape(line.substring(3)), config.getBotName()), event));
 						} else if(line.length() > 5 && line.toLowerCase().substring(0, 5).equals("chat:")) {
-							event.getPlayer().chat(formatChat(setDisplay(config.getDisplay(),db.unescape(line.substring(5)), config.getBotName()), event));
+							event.getPlayer().chat(FormatChat.formatChat(FormatChat.setDisplay(config.getDisplay(),db.unescape(line.substring(5)), config.getBotName()), event));
 						} else {
 							plugin.getServer().broadcastMessage(db.unescape(fmsg));
 						}
@@ -147,23 +144,5 @@ public class AmpleListener implements Listener {
 		}
 	}
 
-	public String setDisplay(String display, String message, String botname) {
-		String str = display.replaceAll("%botname", botname);	
-		return str.replaceAll("%message", message);
-	}
-	public static String formatChat(String chat, AsyncPlayerChatEvent event)
-	{
-		//format chat
-		chat = ChatColor.translateAlternateColorCodes('&',chat);
-
-		//set wildcards
-		chat = chat.replaceAll("%player", event.getPlayer().getName());
-		
-		//numerical wildcards
-		String[] words =ChatColor.stripColor(event.getMessage()).split(" ");
-		for(int i=0;i < words.length; i++) chat = chat.replace("%"+(i+1), words[i]);
-
-		return chat;
-	}
 
 }

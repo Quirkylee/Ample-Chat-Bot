@@ -29,6 +29,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jaggy.bukkit.ample.MetricsLite;
+import org.jaggy.bukkit.ample.cmds.AmpleSay;
 import org.jaggy.bukkit.ample.cmds.cmdAmpa;
 import org.jaggy.bukkit.ample.cmds.cmdAmpd;
 import org.jaggy.bukkit.ample.cmds.cmdAmple;
@@ -98,6 +99,7 @@ public class Ample extends JavaPlugin {
 		getCommand("qlist").setExecutor(new cmdQList(this));
 		getCommand("question").setExecutor(new cmdAmpq(this));
 		getCommand("delquestion").setExecutor(new cmdAmpd(this));
+		getCommand("amplesay").setExecutor(new AmpleSay(this));
 		
 		
 	}
@@ -166,8 +168,11 @@ public class Ample extends JavaPlugin {
 		sender.sendMessage(ChatColor.GREEN+msg);
 	}
 
-	public void Error(Player player, String msg) {
-		player.sendMessage(ChatColor.RED+msg);
-		
+	/**
+	 * @param sender
+	 * @param msg
+	 */
+	public void Error(CommandSender sender, String msg) {
+		sender.sendMessage(ChatColor.RED+msg);
 	}
 }
