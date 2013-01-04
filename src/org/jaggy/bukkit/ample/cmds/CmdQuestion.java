@@ -81,7 +81,7 @@ public class CmdQuestion implements CommandExecutor {
 			plugin.Msg(sender, "Db error: Failed to add the question.");
 		else
 			plugin.Msg(sender, "Question ID: "+db.lastID());
-		} else plugin.Msg(sender, "Question keyphrase is to short it has to be 4 characters or greater.");
+		} else plugin.Msg(sender, "Question keyphrase is to short, it has to be 4 characters or greater.");
 	}
 	
 }
