@@ -30,12 +30,12 @@ import org.jaggy.bukkit.ample.utils.FormatChat;
  * @author matthewl
  *
  */
-public class AmpleSay implements CommandExecutor {
+public class CmdSay implements CommandExecutor {
 
 	private Ample plugin = new Ample();
 	private Config config;
 	
-	public AmpleSay(Ample instance) {
+	public CmdSay(Ample instance) {
 		plugin = instance;
 		config = plugin.getDConfig();
 	}

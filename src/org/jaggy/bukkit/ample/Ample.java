@@ -29,12 +29,12 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jaggy.bukkit.ample.MetricsLite;
-import org.jaggy.bukkit.ample.cmds.AmpleSay;
-import org.jaggy.bukkit.ample.cmds.cmdAmpa;
-import org.jaggy.bukkit.ample.cmds.cmdAmpd;
-import org.jaggy.bukkit.ample.cmds.cmdAmple;
-import org.jaggy.bukkit.ample.cmds.cmdAmpq;
-import org.jaggy.bukkit.ample.cmds.cmdQList;
+import org.jaggy.bukkit.ample.cmds.CmdSay;
+import org.jaggy.bukkit.ample.cmds.CmdAmpa;
+import org.jaggy.bukkit.ample.cmds.CmdAmpd;
+import org.jaggy.bukkit.ample.cmds.CmdAmple;
+import org.jaggy.bukkit.ample.cmds.CmdQuestion;
+import org.jaggy.bukkit.ample.cmds.CmdQList;
 import org.jaggy.bukkit.ample.config.Config;
 import org.jaggy.bukkit.ample.config.YMLFile;
 import org.jaggy.bukkit.ample.db.DB;
@@ -94,12 +94,12 @@ public class Ample extends JavaPlugin {
 		PluginManager pm = getServer().getPluginManager();
 		pm.registerEvents(new AmpleListener(this), this);
 		
-		getCommand("ample").setExecutor(new cmdAmple(this));
-		getCommand("answer").setExecutor(new cmdAmpa(this));
-		getCommand("qlist").setExecutor(new cmdQList(this));
-		getCommand("question").setExecutor(new cmdAmpq(this));
-		getCommand("delquestion").setExecutor(new cmdAmpd(this));
-		getCommand("amplesay").setExecutor(new AmpleSay(this));
+		getCommand("ample").setExecutor(new CmdAmple(this));
+		getCommand("answer").setExecutor(new CmdAmpa(this));
+		getCommand("qlist").setExecutor(new CmdQList(this));
+		getCommand("question").setExecutor(new CmdQuestion(this));
+		getCommand("delquestion").setExecutor(new CmdAmpd(this));
+		getCommand("amplesay").setExecutor(new CmdSay(this));
 		
 		
 	}

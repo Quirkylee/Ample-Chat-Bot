@@ -17,7 +17,6 @@
  */
 package org.jaggy.bukkit.ample.cmds;
 
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -29,71 +28,60 @@ import org.jaggy.bukkit.ample.Ample;
 import org.jaggy.bukkit.ample.config.Config;
 import org.jaggy.bukkit.ample.db.DB;
 
+public class CmdQList implements CommandExecutor {
 
-public class cmdAmpa implements CommandExecutor {
-	
 	private Ample plugin = new Ample();
 	private DB db;
 	private Config config;
 	
-	public cmdAmpa(Ample instance) {
+	public CmdQList(Ample instance) {
 		plugin = instance;
 		db = plugin.getDB();
 		config = plugin.getDConfig();
 	}
-	
+
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label,
 			String[] args) {
-		String answer = "";
-		
-		for(int i = 1; i < args.length; i++) {
-			answer += args[i];
-			answer += " ";
-		}
-		answer = answer.trim();
 		if(sender instanceof Player) {
 			Player player = (Player) sender;
-			if( player.hasPermission("ample.edit") ) {
-				try {
-					setAnswer(sender, Integer.parseInt(args[0]), answer);
-				} catch (NumberFormatException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+			if( player.hasPermission("ample.list") ) {
+			listQuestions(sender, args);	
 			} else plugin.Error(player, "You do not have permissions to use this command.");
 		} else {
-			try {
-				setAnswer(sender, Integer.parseInt(args[0]), answer);
-			} catch (NumberFormatException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			listQuestions(sender, args);
 		}
 		return true;
 	}
-	/**
-	 * Sets the answer to a question ID.
-	 * 
-	 * @param sender
-	 * @param QID
-	 * @param answer
-	 * @throws SQLException
-	 */
-	public void setAnswer(CommandSender sender, Integer QID, String answer) throws SQLException {
-			ResultSet result = db.query("SELECT * FROM "+config.getDbPrefix()+"Responses WHERE id = '"+QID+"';");
-			if(result != null) {
-				db.query("UPDATE "+config.getDbPrefix()+"Responses SET response = \""+answer+"\" WHERE id = '"+QID+"';");
-				plugin.Msg(sender, "Answer was set!");
+
+	private void listQuestions(CommandSender sender, String[] args) {
+		ResultSet result = null;
+		try {
+			Integer.parseInt(args[0]);
+			result = db.query("SELECT * FROM "+config.getDbPrefix()+"Responses WHERE id = '"+args[0]+"';");
+		} catch (Exception e) {
+				if(args.length == 0) {
+					result = db.query("SELECT * FROM "+config.getDbPrefix()+"Responses WHERE keyphrase LIKE '%'  ESCAPE \"|\";");
+				
+				} else {
+					result = db.query("SELECT * FROM "+config.getDbPrefix()+"Responses WHERE keyphrase LIKE '%"+db.escape_quotes(args[0])+"%';");
+				}
+		}
+		if(result != null) {
+			try {
+				while (result.next()) {
+					String id = result.getString("id");
+					String question = result.getString("keyphrase");
+					String response = result.getString("response");
+					plugin.Msg(sender, "["+id+"] Q:"+db.unescape(question));
+					plugin.Msg(sender, "    A:"+db.unescape(response));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				plugin.Msg(sender, "DB error: "+e);
 			}
-			else {
-				plugin.Msg(sender, "Unable to find the id: "+QID);
-			}
+		} else plugin.Msg(sender, "No results found.");
+		
 	}
+
 }

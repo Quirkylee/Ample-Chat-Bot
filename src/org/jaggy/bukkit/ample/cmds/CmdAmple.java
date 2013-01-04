@@ -22,11 +22,11 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.jaggy.bukkit.ample.Ample;
 
-public class cmdAmple implements CommandExecutor {
+public class CmdAmple implements CommandExecutor {
 
 	private Ample plugin = new Ample();
 	
-	public cmdAmple(Ample instance) {
+	public CmdAmple(Ample instance) {
 		plugin = instance;
 	}
 	

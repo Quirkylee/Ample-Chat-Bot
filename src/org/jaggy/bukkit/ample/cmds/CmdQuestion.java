@@ -27,13 +27,13 @@ import org.jaggy.bukkit.ample.Ample;
 import org.jaggy.bukkit.ample.config.Config;
 import org.jaggy.bukkit.ample.db.DB;
 
-public class cmdAmpq implements CommandExecutor {
+public class CmdQuestion implements CommandExecutor {
 	
 	private Ample plugin = new Ample();
 	private DB db;
 	private Config config;
 	
-	public cmdAmpq(Ample instance) {
+	public CmdQuestion(Ample instance) {
 		plugin = instance;
 		db = plugin.getDB();
 		config = plugin.getDConfig();
