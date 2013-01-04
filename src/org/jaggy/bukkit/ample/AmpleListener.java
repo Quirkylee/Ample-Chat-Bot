@@ -79,16 +79,21 @@ public class AmpleListener implements Listener {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					Entry<Double, TreeMap<Integer, String>> highest = rank.lastEntry();
+					try {
+						Entry<Double, TreeMap<Integer, String>> highest = rank.lastEntry();
+					
 
-					TreeMap<Integer, String> value = highest.getValue();
-					if(highest.getKey() > config.getAllowable()) {
-						try {
-							execute(value, event);
-						} catch (SQLException e) {
+						TreeMap<Integer, String> value = highest.getValue();
+						if(highest.getKey() > config.getAllowable()) {
+							try {
+								execute(value, event);
+							} catch (SQLException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
+							}
 						}
+					}  catch (Exception e) {
+						//do nothing
 					}
 				}
 			}
@@ -101,7 +106,7 @@ public class AmpleListener implements Listener {
 	 */
 	private void execute(TreeMap<Integer, String> value, final AsyncPlayerChatEvent event) throws SQLException {
 		final String response = value.firstEntry().getValue();
-		int id = value.firstEntry().getKey();
+		final int id = value.firstEntry().getKey();
 		db.query("INSERT INTO "+config.getDbPrefix()+"Usage (player,dtime,question) " +
 				"VALUES ( '"+event.getPlayer().getName()+"', "+db.currentEpoch()+", "+id+");");
 		ResultSet rs = db.query("SELECT COUNT(dtime) FROM "+config.getDbPrefix()+"Usage WHERE question = "+id+" AND dtime < "+db.currentEpoch()+" AND dtime > "+(db.currentEpoch() - config.getAbuseRatio()[1])+";");
@@ -118,19 +123,23 @@ public class AmpleListener implements Listener {
 				@Override
 				public void run() {
 					try {
-						if(line.length() > 4 && line.toLowerCase().substring(0, 4).equals("cmd:")) {
-							String cmd = db.unescape(line.toLowerCase().substring(4));
-							Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(),FormatChat.formatChat(cmd.trim(),event));
-						} else if(line.length() > 5 && line.toLowerCase().substring(0, 5).equals("pcmd:")) {
-							String cmd = db.unescape(line.toLowerCase().substring(5));
-							Bukkit.getServer().dispatchCommand(event.getPlayer(),FormatChat.formatChat(cmd.trim(),event));
-						} else if(line.length() > 3 && line.toLowerCase().substring(0, 3).equals("pm:")) {
-							plugin.loger("pm to "+event.getPlayer().getDisplayName()+": "+line.substring(3));
-							event.getPlayer().sendMessage(FormatChat.formatChat(FormatChat.setDisplay(config.getDisplay(),db.unescape(line.substring(3)), config.getBotName()), event));
-						} else if(line.length() > 5 && line.toLowerCase().substring(0, 5).equals("chat:")) {
-							event.getPlayer().chat(FormatChat.formatChat(FormatChat.setDisplay(config.getDisplay(),db.unescape(line.substring(5)), config.getBotName()), event));
+						if(!line.isEmpty()) {
+							if(line.length() > 4 && line.toLowerCase().substring(0, 4).equals("cmd:")) {
+								String cmd = db.unescape(line.toLowerCase().substring(4));
+								Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(),FormatChat.formatChat(cmd.trim(),event));
+							} else if(line.length() > 5 && line.toLowerCase().substring(0, 5).equals("pcmd:")) {
+								String cmd = db.unescape(line.toLowerCase().substring(5));
+								Bukkit.getServer().dispatchCommand(event.getPlayer(),FormatChat.formatChat(cmd.trim(),event));
+							} else if(line.length() > 3 && line.toLowerCase().substring(0, 3).equals("pm:")) {
+								plugin.loger("pm to "+event.getPlayer().getDisplayName()+": "+line.substring(3));
+								event.getPlayer().sendMessage(FormatChat.formatChat(FormatChat.setDisplay(config.getDisplay(),db.unescape(line.substring(3)), config.getBotName()), event));
+							} else if(line.length() > 5 && line.toLowerCase().substring(0, 5).equals("chat:")) {
+								event.getPlayer().chat(FormatChat.formatChat(FormatChat.setDisplay(config.getDisplay(),db.unescape(line.substring(5)), config.getBotName()), event));
+							} else {
+								plugin.getServer().broadcastMessage(db.unescape(fmsg));
+							}
 						} else {
-							plugin.getServer().broadcastMessage(db.unescape(fmsg));
+							plugin.loger("You need to set an answer for question id: "+id);
 						}
 					} catch (CommandException e) {
 						// TODO Auto-generated catch block

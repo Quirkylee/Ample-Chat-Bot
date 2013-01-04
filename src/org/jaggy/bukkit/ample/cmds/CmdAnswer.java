@@ -28,6 +28,7 @@ import org.bukkit.entity.Player;
 import org.jaggy.bukkit.ample.Ample;
 import org.jaggy.bukkit.ample.config.Config;
 import org.jaggy.bukkit.ample.db.DB;
+import org.jaggy.bukkit.ample.utils.Misc;
 
 
 public class CmdAnswer implements CommandExecutor {
@@ -52,14 +53,23 @@ public class CmdAnswer implements CommandExecutor {
 			answer += " ";
 		}
 		answer = answer.trim();
+		int qid = 0;
+		if(args.length >= 2) {
+			if(Misc.isInteger(args[0])) {
+			qid = Integer.parseInt(args[0]);
+			}
+		}
 		if(sender instanceof Player) {
 			Player player = (Player) sender;
+			
 			if( player.hasPermission("ample.edit") ) {
 				try {
-					setAnswer(sender, Integer.parseInt(args[0]), answer);
-				} catch (NumberFormatException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					
+					if(qid != 0) {
+					setAnswer(sender, qid, answer);
+					} else {
+						plugin.Msg(sender, "Not a valid answer: /"+label+" <qid> <answer here>");
+					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -67,10 +77,11 @@ public class CmdAnswer implements CommandExecutor {
 			} else plugin.Error(player, "You do not have permissions to use this command.");
 		} else {
 			try {
-				setAnswer(sender, Integer.parseInt(args[0]), answer);
-			} catch (NumberFormatException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				if(qid != 0 && args.length >= 2) {
+				setAnswer(sender, qid, answer);
+				} else {
+					plugin.Msg(sender, "Not a valid answer: /"+label+" <qid> <answer here>");
+				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

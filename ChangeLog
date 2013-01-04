@@ -1,6 +1,9 @@
 1.2.9:
   * Made and moved chat formating into a Util class
   * Added a say command
+  * Fixed listener so if no answer is set it won't thorough an exception
+  * Set Listener to not respond when no answer is set and send an notice to console
+  * Made answer command more intuitive for inproper content in the qid as well length of the commands
 
 
 1.2.8:
