@@ -27,6 +27,14 @@ Delay: 2
 # Anything greater then the percentage will be the response,
 Allowable: 80
 
+#
+# IRC Plugin Intergration Settings (optional)
+#
+# Send to one IRC Channel:
+IRCChannels: '#AmpleChatBot'
+# Send to Multiple IRC channels
+#IRCChannels: '#AmpleChatBot,#chat2'
+
 
 #
 # Anti-Abuse Settings For Bot:

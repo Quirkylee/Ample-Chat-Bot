@@ -2,7 +2,9 @@ name: AmpleChatBot
 main: org.jaggy.bukkit.ample.Ample
 version: 1.2.9
 author: matthewl6970, licks92
-softdepend: [Essentials]
+softdepend: [Essentials, MonsterIRC]
+
+
 commands:
  answer:
   description: Sets the response to Question ID.
@@ -27,11 +29,16 @@ commands:
  ample:
   description: Displays the help for the Ample plugin.
   usage: /<command>
+ ampleupdate:
+  description:  Updates an existing question or keyphrase.
+  usage: /<command> <question id> <new question or keyphrase>
+  aliases: [ampu, au]
+
 permissions:
  ample.invoke:
   description: Allows people to invoke responses.
  ample.edit:
-  description: Allows to editing/adding of questions and answers.
+  description: Allows to editing/updating/adding of questions and answers.
  ample.qlist:
   description: Allows to view the list of questions.
  ample.delete:

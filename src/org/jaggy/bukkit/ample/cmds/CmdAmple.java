@@ -52,6 +52,12 @@ public class CmdAmple implements CommandExecutor {
 		plugin.Msg(sender, " ");
 		plugin.Msg(sender, "/delquestion <question id>");
 		plugin.Msg(sender, "   Deletes question or keyphrase.");
+		plugin.Msg(sender, " ");
+		plugin.Msg(sender, "/amplesay <message>");
+		plugin.Msg(sender, "   Makes the Chat Bot say something.");
+		plugin.Msg(sender, " ");
+		plugin.Msg(sender, "/ampleupdate <question id> <new question or keyphrase>");
+		plugin.Msg(sender, "   Updates an existing question or keyphrase.");
 		return true;
 	}
 

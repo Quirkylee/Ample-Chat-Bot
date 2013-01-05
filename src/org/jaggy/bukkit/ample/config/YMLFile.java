@@ -116,6 +116,14 @@ public class YMLFile implements Config {
 	public Double getAllowable() {
 		return bukkitConfig.getDouble("Allowable", defaultAllowable);
 	}
+
+	/* (non-Javadoc)
+	 * @see org.jaggy.bukkit.ample.config.Config#getIRCChannels()
+	 */
+	@Override
+	public String getIRCChannels() {
+		return bukkitConfig.getString("IRCChannels", defaultIRCChannels);
+	}
 	
 
 }

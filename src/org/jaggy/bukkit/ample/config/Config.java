@@ -17,6 +17,7 @@ public interface Config {
 	public String defaultAbuseAction = "ignore";
 	public String defaultAbuseKick = "[AmpleBot] Do not abuse me or I will keep kicking you!";
 	public String defaultDisplay = "<%botname> %message";
+	public String defaultIRCChannels = "#AmpleChatBot";
 	public long defaultMsgDelay = 2;
 	
 	public void save() throws Exception;
@@ -34,6 +35,7 @@ public interface Config {
 	public String getAbuseAction();
 	public String getAbuseKick();
 	public String getDisplay();
+	public String getIRCChannels();
 	public Long getMsgDelay();
 	void load(Ample instance) throws Exception;
 }

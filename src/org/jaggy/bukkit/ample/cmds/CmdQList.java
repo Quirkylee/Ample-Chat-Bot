@@ -20,6 +20,7 @@ package org.jaggy.bukkit.ample.cmds;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -69,12 +70,21 @@ public class CmdQList implements CommandExecutor {
 		}
 		if(result != null) {
 			try {
+				int i = 0;
 				while (result.next()) {
 					String id = result.getString("id");
 					String question = result.getString("keyphrase");
 					String response = result.getString("response");
-					plugin.Msg(sender, "["+id+"] Q:"+db.unescape(question));
-					plugin.Msg(sender, "    A:"+db.unescape(response));
+					ChatColor color;
+					if(i == 1) {
+						color = ChatColor.AQUA;
+						i = 0;
+					} else {
+						color = ChatColor.YELLOW;
+						i = 1;
+					}
+					sender.sendMessage(color+"["+id+"] Q:"+db.unescape(question));
+					sender.sendMessage(color+"    A:"+db.unescape(response));
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();

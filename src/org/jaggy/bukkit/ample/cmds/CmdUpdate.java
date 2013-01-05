@@ -26,6 +26,7 @@ import org.bukkit.entity.Player;
 import org.jaggy.bukkit.ample.Ample;
 import org.jaggy.bukkit.ample.config.Config;
 import org.jaggy.bukkit.ample.db.DB;
+import org.jaggy.bukkit.ample.utils.Misc;
 
 public class CmdUpdate implements CommandExecutor {
 	
@@ -42,45 +43,49 @@ public class CmdUpdate implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label,
 			String[] args) {
+		if(args.length >= 2) {
+			if(Misc.isInteger(args[0])) {
+				String question = "";
+				int id = Integer.parseInt(args[0]);
 
-		String question = "";
-
-		for(int i = 0; i < args.length; i++) {
-			question += args[i];
-			question += " ";
-		}
-		question = question.trim();
-		if(sender instanceof Player){
-			Player player = (Player) sender;
-			if( player.hasPermission("ample.edit") ) {
-				try {
-					addQuestion(sender, question);
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					db.Error("DB error:" +e);
+				for(int i = 1; i < args.length; i++) {
+					question += args[i];
+					question += " ";
 				}
+				question = question.trim();
+				if(sender instanceof Player){
+					Player player = (Player) sender;
+					if( player.hasPermission("ample.edit") ) {
+						try {
+							updateQuestion(sender, id, question);
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							db.Error("DB error:" +e);
+						}
 
-			} else plugin.Error(player, "You do not have permissions to use this command.");
-		} else {
-			try {
-				addQuestion(sender, question);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				db.Error("DB error:" +e);
-			}
-		}
+					} else plugin.Error(player, "You do not have permissions to use this command.");
+				} else {
+					try {
+						updateQuestion(sender, id, question);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						db.Error("DB error:" +e);
+					}
+				} 
+			} else plugin.Msg(sender, "Usage: /"+label+" <qid> <new question or keyphrase>");
+		} else plugin.Msg(sender, "Usage: /"+label+" <qid> <new question or keyphrase>");
 		return true;
 	}
 
-	private void addQuestion(CommandSender sender, String question) throws SQLException {
+	private void updateQuestion(CommandSender sender, int id, String question) throws SQLException {
 		if(question.length() >= 3) {
 
-		if(db.query("INSERT INTO "+config.getDbPrefix()+"Responses (keyphrase,response) VALUES ('"+db.escape_quotes(question.toLowerCase())+"','');") != null) 
-			plugin.Msg(sender, "Db error: Failed to add the question.");
+		if(db.query("UPDATE "+config.getDbPrefix()+"Responses SET keyphrase = '"+db.escape_quotes(question.toLowerCase())+"' WHERE id = "+id+";") != null) 
+			plugin.Msg(sender, "Db error: Failed to updated the question.");
 		else
-			plugin.Msg(sender, "Question ID: "+db.lastID());
+			plugin.Msg(sender, "Question Has been updated!");
 		} else plugin.Msg(sender, "Question keyphrase is to short it has to be 4 characters or greater.");
 	}
 	

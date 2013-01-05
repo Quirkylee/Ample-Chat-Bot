@@ -137,6 +137,9 @@ public class AmpleListener implements Listener {
 								event.getPlayer().chat(FormatChat.formatChat(FormatChat.setDisplay(config.getDisplay(),db.unescape(line.substring(5)), config.getBotName()), event));
 							} else {
 								plugin.getServer().broadcastMessage(db.unescape(fmsg));
+								if(plugin.getServer().getPluginManager().getPlugin("MonsterIRC") != null) {
+									plugin.monsterirc.sendToIRC(db.unescape(fmsg));
+								}
 							}
 						} else {
 							plugin.loger("You need to set an answer for question id: "+id);

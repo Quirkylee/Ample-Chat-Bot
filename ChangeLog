@@ -4,6 +4,8 @@
   * Fixed listener so if no answer is set it won't thorough an exception
   * Set Listener to not respond when no answer is set and send an notice to console
   * Made answer command more intuitive for inproper content in the qid as well length of the commands
+  * Added alternating colors to qlist
+  * Added question update command
 
 
 1.2.8:

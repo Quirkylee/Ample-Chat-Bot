@@ -22,10 +22,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Logger;
 
+
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jaggy.bukkit.ample.MetricsLite;
@@ -35,11 +35,13 @@ import org.jaggy.bukkit.ample.cmds.CmdDelete;
 import org.jaggy.bukkit.ample.cmds.CmdAmple;
 import org.jaggy.bukkit.ample.cmds.CmdQuestion;
 import org.jaggy.bukkit.ample.cmds.CmdQList;
+import org.jaggy.bukkit.ample.cmds.CmdUpdate;
 import org.jaggy.bukkit.ample.config.Config;
 import org.jaggy.bukkit.ample.config.YMLFile;
 import org.jaggy.bukkit.ample.db.DB;
 import org.jaggy.bukkit.ample.db.MYSQL;
 import org.jaggy.bukkit.ample.db.SQLITE;
+import org.jaggy.bukkit.ample.hooks.MonsterIRCHook;
 
 public class Ample extends JavaPlugin {
 
@@ -48,6 +50,7 @@ public class Ample extends JavaPlugin {
 	private Config config;
 	private DB db = null;
 	public boolean essentialsEnable = false;
+	public MonsterIRCHook monsterirc;
 	
 	public void loger(String msg) {
 		log.info("[Ample] "+msg);
@@ -65,14 +68,10 @@ public class Ample extends JavaPlugin {
 		}
 		//load config
 		loadConfig();
-		
-		//test for essentials
-		Plugin essentials = this.getServer().getPluginManager().getPlugin("Essentials");
-	    if( essentials != null )
-	    {
-	        loger("Essentials found.....");
-	        essentialsEnable  = true;
-	    }
+
+	    //load MonsterIRC Hook
+		monsterirc = new MonsterIRCHook(this);
+		monsterirc.loadHook();
 		
 		//initialize db
 		if(config.getDbType().equals("SQLITE")) {
@@ -91,6 +90,8 @@ public class Ample extends JavaPlugin {
 		}
 		db.open();
 		db.createTables();
+		
+		//command registers
 		PluginManager pm = getServer().getPluginManager();
 		pm.registerEvents(new AmpleListener(this), this);
 		
@@ -100,6 +101,7 @@ public class Ample extends JavaPlugin {
 		getCommand("question").setExecutor(new CmdQuestion(this));
 		getCommand("delquestion").setExecutor(new CmdDelete(this));
 		getCommand("amplesay").setExecutor(new CmdSay(this));
+		getCommand("ampleupdate").setExecutor(new CmdUpdate(this));
 		
 		
 	}
@@ -175,4 +177,5 @@ public class Ample extends JavaPlugin {
 	public void Error(CommandSender sender, String msg) {
 		sender.sendMessage(ChatColor.RED+msg);
 	}
+	
 }
