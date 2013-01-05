@@ -1,4 +1,4 @@
-1.2.9:
+1.3:
   * Made and moved chat formating into a Util class
   * Added a say command
   * Fixed listener so if no answer is set it won't thorough an exception
@@ -6,6 +6,7 @@
   * Made answer command more intuitive for inproper content in the qid as well length of the commands
   * Added alternating colors to qlist
   * Added question update command
+  * Intergrated into MonsterIRC
 
 
 1.2.8:
