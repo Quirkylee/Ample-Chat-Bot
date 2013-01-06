@@ -7,6 +7,7 @@
   * Added alternating colors to qlist
   * Added question update command
   * Intergrated into MonsterIRC
+  * Add check to listerner to see if chat is cancelled. As Faction chat does that!
 
 
 1.2.8:

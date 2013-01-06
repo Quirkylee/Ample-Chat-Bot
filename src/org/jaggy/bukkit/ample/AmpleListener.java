@@ -45,55 +45,57 @@ public class AmpleListener implements Listener {
 	}
 
 	
-	@EventHandler(priority = EventPriority.LOWEST)
+	@EventHandler(priority = EventPriority.HIGHEST)
 	void onChat(final AsyncPlayerChatEvent event) {
-		if( event.getPlayer().hasPermission("ample.invoke") ) {
-			message = ChatColor.stripColor(event.getMessage()).toLowerCase();
-			if(message.length() >= 3) {
-				ResultSet result = db.query("SELECT * FROM "+config.getDbPrefix()+"Responses ORDER BY keyphrase DESC;");
-				if(result != null) {
-					TreeMap<Double,TreeMap<Integer,String>> rank = new TreeMap<Double,TreeMap<Integer,String>>();
-					try {
-						while(result.next()) {
-							String response = result.getString("keyphrase").toLowerCase();
-							double reslength = response.length();
-							double msglength = message.length();
-							double rel;
-							if(reslength >= msglength) rel = ((msglength/reslength)*100);
-							else rel = ((reslength/msglength)*100);
-							String[] mary = message.split(" ");
-							double count = 0;
-							for(int i=0;i < mary.length;i++) {
-								if(response.contains(mary[i])) count ++;
+		if(!event.isCancelled()) {
+			if( event.getPlayer().hasPermission("ample.invoke") ) {
+				message = ChatColor.stripColor(event.getMessage()).toLowerCase();
+				if(message.length() >= 3) {
+					ResultSet result = db.query("SELECT * FROM "+config.getDbPrefix()+"Responses ORDER BY keyphrase DESC;");
+					if(result != null) {
+						TreeMap<Double,TreeMap<Integer,String>> rank = new TreeMap<Double,TreeMap<Integer,String>>();
+						try {
+							while(result.next()) {
+								String response = result.getString("keyphrase").toLowerCase();
+								double reslength = response.length();
+								double msglength = message.length();
+								double rel;
+								if(reslength >= msglength) rel = ((msglength/reslength)*100);
+								else rel = ((reslength/msglength)*100);
+								String[] mary = message.split(" ");
+								double count = 0;
+								for(int i=0;i < mary.length;i++) {
+									if(response.contains(mary[i])) count ++;
+								}
+								double wordrel;
+								if (count <= mary.length) wordrel = ((count/mary.length)*100);
+								else wordrel = ((mary.length/count)*100);
+								double avgrel = ((wordrel+rel)/2);
+								TreeMap<Integer,String> temp = new TreeMap<Integer,String>();
+								temp.put(result.getInt("id"), result.getString("response"));
+								rank.put(avgrel, temp);
+
 							}
-							double wordrel;
-							if (count <= mary.length) wordrel = ((count/mary.length)*100);
-							else wordrel = ((mary.length/count)*100);
-							double avgrel = ((wordrel+rel)/2);
-							TreeMap<Integer,String> temp = new TreeMap<Integer,String>();
-							temp.put(result.getInt("id"), result.getString("response"));
-							rank.put(avgrel, temp);
-
-						}
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					try {
-						Entry<Double, TreeMap<Integer, String>> highest = rank.lastEntry();
-					
-
-						TreeMap<Integer, String> value = highest.getValue();
-						if(highest.getKey() > config.getAllowable()) {
-							try {
-								execute(value, event);
-							} catch (SQLException e) {
+						} catch (SQLException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
-							}
 						}
-					}  catch (Exception e) {
-						//do nothing
+						try {
+							Entry<Double, TreeMap<Integer, String>> highest = rank.lastEntry();
+
+
+							TreeMap<Integer, String> value = highest.getValue();
+							if(highest.getKey() > config.getAllowable()) {
+								try {
+									execute(value, event);
+								} catch (SQLException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							}
+						}  catch (Exception e) {
+							//do nothing
+						}
 					}
 				}
 			}
