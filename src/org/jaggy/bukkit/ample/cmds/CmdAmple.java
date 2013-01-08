@@ -25,40 +25,109 @@ import org.jaggy.bukkit.ample.Ample;
 public class CmdAmple implements CommandExecutor {
 
 	private Ample plugin = new Ample();
-	
+
 	public CmdAmple(Ample instance) {
 		plugin = instance;
 	}
-	
+
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label,
 			String[] args) {
-		plugin.Msg(sender, "Ample Chat Bot is a chat robot that responses");
-		plugin.Msg(sender, "to key phrases people say in chat.");
-		plugin.Msg(sender, "Wildcards:");
-		plugin.Msg(sender, "   %botname = Bot's name.");
-		plugin.Msg(sender, "   %player = Player invoking response.");
-		plugin.Msg(sender, "   * Chat Colors are supported.");
-		plugin.Msg(sender, " ");
-		plugin.Msg(sender, "/answer <question id> <answer>");
-		plugin.Msg(sender, "   Sets the response to the question or keyphrase.");
-		plugin.Msg(sender, " ");
-		plugin.Msg(sender, "/question <question or keyphrase>");
-		plugin.Msg(sender, "   Adds an question or keyphrase. Minimum characters is 3.");
-		plugin.Msg(sender, " ");
-		plugin.Msg(sender, "/qlist <QID|keyphrase or question>");
-		plugin.Msg(sender, "   Searchs/Lists question or keyphrase.");
-		plugin.Msg(sender, "   Use % to search all or todo partial keyphrases.");
-		plugin.Msg(sender, " ");
-		plugin.Msg(sender, "/delquestion <question id>");
-		plugin.Msg(sender, "   Deletes question or keyphrase.");
-		plugin.Msg(sender, " ");
-		plugin.Msg(sender, "/amplesay <message>");
-		plugin.Msg(sender, "   Makes the Chat Bot say something.");
-		plugin.Msg(sender, " ");
-		plugin.Msg(sender, "/ampleupdate <question id> <new question or keyphrase>");
-		plugin.Msg(sender, "   Updates an existing question or keyphrase.");
+		if(args[0].equals("help")) {
+			plugin.Msg(sender, "Ample Chat Bot is a chat robot that responses");
+			plugin.Msg(sender, "to key phrases people say in chat.");
+			plugin.Msg(sender, "Wildcards:");
+			plugin.Msg(sender, "   %botname = Bot's name.");
+			plugin.Msg(sender, "   %player = Player invoking response.");
+			plugin.Msg(sender, "   * Chat Colors are supported.");
+			plugin.Msg(sender, " ");
+			plugin.Msg(sender, "/answer <question id> <answer>");
+			plugin.Msg(sender, "   Sets the response to the question or keyphrase.");
+			plugin.Msg(sender, " ");
+			plugin.Msg(sender, "/question <question or keyphrase>");
+			plugin.Msg(sender, "   Adds an question or keyphrase. Minimum characters is 3.");
+			plugin.Msg(sender, " ");
+			plugin.Msg(sender, "/qlist <QID|keyphrase or question>");
+			plugin.Msg(sender, "   Searchs/Lists question or keyphrase.");
+			plugin.Msg(sender, "   Use % to search all or todo partial keyphrases.");
+			plugin.Msg(sender, " ");
+			plugin.Msg(sender, "/delquestion <question id>");
+			plugin.Msg(sender, "   Deletes question or keyphrase.");
+			plugin.Msg(sender, " ");
+			plugin.Msg(sender, "/amplesay <message>");
+			plugin.Msg(sender, "   Makes the Chat Bot say something.");
+			plugin.Msg(sender, " ");
+			plugin.Msg(sender, "/ampleupdate <question id> <new question or keyphrase>");
+			plugin.Msg(sender, "   Updates an existing question or keyphrase.");
+
+		} else {
+			plugin.Msg(sender, "The help has moved to /ample help!");
+			plugin.Msg(sender, "");
+			plugin.Msg(sender, "/ample help: Shows how to use the other commands.");
+			plugin.Msg(sender, "/ample config: Manages plugin configuration file.");
+			//plugin.Msg(sender, "/ample db: Tool to export and import database."); // NOT IMPLEMENTED YET \\
+		}
 		return true;
 	}
 
+	class Config {
+		String[] flags = {"BotName", "Delay", "Allowable", "IRCChannels", "AbuseRatio",
+				"AbuseAction", "AbuseKick", "SpamAction", "SpamWarn", "SpamKick", "SpamBan",
+				"FloodAction", "FloodRatio", "FloodWarn", "FloodKick", "FloodBan", "DbType",
+				"DbHost", "DbPort", "DbName", "DbPrefix", "DbUser", "DbPass"};
+		public void cmd(CommandSender sender, String[] args) {
+			if(args[1].equalsIgnoreCase("set")) {
+				set(sender, args);
+			} else if(args[1].equalsIgnoreCase("reload")) {
+				reload(sender, args);
+			} else if(args[1].equalsIgnoreCase("save")) {
+				save(sender, args);
+			} else if(args[1].equalsIgnoreCase("list")) {
+				list(sender, args);
+			} else {
+				plugin.Msg(sender, "This command manages configuration file and settings!");
+				plugin.Msg(sender, "");
+				plugin.Msg(sender, "/ample config set <setting> <value>");
+				plugin.Msg(sender, "/ample config reload");
+				plugin.Msg(sender, "/ample config save");
+				plugin.Msg(sender, "/ample config list");
+			}
+		}
+
+		/**
+		 * @param sender
+		 * @param args
+		 */
+		private void list(CommandSender sender, String[] args) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		/**
+		 * @param sender
+		 * @param args
+		 */
+		private void save(CommandSender sender, String[] args) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		/**
+		 * @param sender
+		 * @param args
+		 */
+		private void reload(CommandSender sender, String[] args) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		/**
+		 * @param sender
+		 * @param args
+		 */
+		private void set(CommandSender sender, String[] args) {
+			// TODO Auto-generated method stub
+			
+		}
+	}
 }

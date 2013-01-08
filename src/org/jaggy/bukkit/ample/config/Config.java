@@ -27,7 +27,7 @@ public interface Config {
 	public String defaultFloodKick = "Please do not flood!";
 	public String defaultFloodBan = "Your banned for flooding!";
 	public String defaultFloodRatio = "5;10";
-	public long defaultMsgDelay = 2;
+	public long defaultMsgDelay = 5;
 	
 	public void save() throws Exception;
 	

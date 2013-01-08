@@ -27,8 +27,8 @@ commands:
   usage: /<command> <messageD>
   aliases: [amps, as]
  ample:
-  description: Displays the help for the Ample plugin.
-  usage: /<command>
+  description: No longer just a Displays help for the Ample plugin.
+  usage: /<command> <subcommand>
  ampleupdate:
   description:  Updates an existing question or keyphrase.
   usage: /<command> <question id> <new question or keyphrase>

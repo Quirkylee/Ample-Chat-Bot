@@ -2,6 +2,7 @@
   * Add check to listener to see if chat is cancelled. As Faction chat does that!
   * Added spam detector and filter
   * Added flood detector and filter
+  * Restructured packages for expansion of plugin
   
 1.3:
   * Made and moved chat formating into a Util class
