@@ -18,6 +18,15 @@ public interface Config {
 	public String defaultAbuseKick = "[AmpleBot] Do not abuse me or I will keep kicking you!";
 	public String defaultDisplay = "<%botname> %message";
 	public String defaultIRCChannels = "#AmpleChatBot";
+	public String defaultSpamAction = "warn,kick,ban";
+	public String defaultSpamWarn = "Please do not spam!";
+	public String defaultSpamKick = "Please do not spam!";
+	public String defaultSpamBan = "Your banned for spamming!";
+	public String defaultFloodAction = "warn,kick,ban";
+	public String defaultFloodWarn = "Please do not spam!";
+	public String defaultFloodKick = "Please do not spam!";
+	public String defaultFloodBan = "Your banned for spamming!";
+	public String defaultFloodRatio = "3;20";
 	public long defaultMsgDelay = 2;
 	
 	public void save() throws Exception;
@@ -36,6 +45,15 @@ public interface Config {
 	public String getAbuseKick();
 	public String getDisplay();
 	public String getIRCChannels();
+	public String[] getSpamAction();
+	public String getSpamWarn();
+	public String getSpamKick();
+	public String getSpamBan();
+	public String[] getFloodAction();
+	public String getFloodWarn();
+	public String getFloodKick();
+	public String getFloodBan();
 	public Long getMsgDelay();
 	void load(Ample instance) throws Exception;
+	public Integer[] getFloodRatio();
 }

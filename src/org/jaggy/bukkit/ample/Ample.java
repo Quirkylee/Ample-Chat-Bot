@@ -42,6 +42,9 @@ import org.jaggy.bukkit.ample.db.DB;
 import org.jaggy.bukkit.ample.db.MYSQL;
 import org.jaggy.bukkit.ample.db.SQLITE;
 import org.jaggy.bukkit.ample.hooks.MonsterIRCHook;
+import org.jaggy.bukkit.ample.listeners.FloodListener;
+import org.jaggy.bukkit.ample.listeners.ResponseListener;
+import org.jaggy.bukkit.ample.listeners.SpamListener;
 
 public class Ample extends JavaPlugin {
 
@@ -93,7 +96,9 @@ public class Ample extends JavaPlugin {
 		
 		//command registers
 		PluginManager pm = getServer().getPluginManager();
-		pm.registerEvents(new AmpleListener(this), this);
+		pm.registerEvents(new ResponseListener(this), this);
+		pm.registerEvents(new SpamListener(this), this);
+		pm.registerEvents(new FloodListener(this), this);
 		
 		getCommand("ample").setExecutor(new CmdAmple(this));
 		getCommand("answer").setExecutor(new CmdAnswer(this));

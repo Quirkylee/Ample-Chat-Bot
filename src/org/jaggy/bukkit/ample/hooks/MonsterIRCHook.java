@@ -25,7 +25,7 @@ import org.monstercraft.irc.plugin.handles.IRCHandler;
  * @author matthewl
  *
  */
-public class MonsterIRCHook {
+public class MonsterIRCHook extends Hooks {
 	private Ample plugin;
 	private IRCHandler irchandler;
 	private Config config;
@@ -35,6 +35,8 @@ public class MonsterIRCHook {
 		plugin  = pl;
 	    config = plugin.getDConfig();
 	}
+	
+	@Override
 	public void loadHook() {
 		if(plugin.getServer().getPluginManager().getPlugin("MonsterIRC") != null) {
 			plugin.loger("Enabling MonsterIRC Support!");

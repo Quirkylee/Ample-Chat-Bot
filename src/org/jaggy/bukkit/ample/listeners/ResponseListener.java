@@ -15,7 +15,7 @@
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.jaggy.bukkit.ample;
+package org.jaggy.bukkit.ample.listeners;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,16 +29,17 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.jaggy.bukkit.ample.Ample;
 import org.jaggy.bukkit.ample.config.Config;
 import org.jaggy.bukkit.ample.db.DB;
 import org.jaggy.bukkit.ample.utils.FormatChat;
 
-public class AmpleListener implements Listener {
+public class ResponseListener implements Listener {
 	private Ample plugin;
 	private static Config config;
 	private DB db;
 	private String message;
-	AmpleListener(Ample instance) {
+	public ResponseListener(Ample instance) {
 		plugin = instance;
 		config = plugin.getDConfig();
 		db = plugin.getDB();
@@ -48,7 +49,7 @@ public class AmpleListener implements Listener {
 	@EventHandler(priority = EventPriority.HIGHEST)
 	void onChat(final AsyncPlayerChatEvent event) {
 		if(!event.isCancelled()) {
-			if( event.getPlayer().hasPermission("ample.invoke") ) {
+			if( event.getPlayer().hasPermission("ample.invoke")) {
 				message = ChatColor.stripColor(event.getMessage()).toLowerCase();
 				if(message.length() >= 3) {
 					ResultSet result = db.query("SELECT * FROM "+config.getDbPrefix()+"Responses ORDER BY keyphrase DESC;");

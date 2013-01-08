@@ -29,6 +29,7 @@ Allowable: 80
 
 #
 # IRC Plugin Intergration Settings (optional)
+# This requires MonsterIRC, atm!
 #
 # Send to one IRC Channel:
 IRCChannels: '#AmpleChatBot'
@@ -40,14 +41,46 @@ IRCChannels: '#AmpleChatBot'
 # Anti-Abuse Settings For Bot:
 # Protects bot from people looking to abuse it.
 #
-# Mute requires Essentials
-#
 # AbuseRatio: Triggered Responses;seconds
 # Action: kick|mute|ignore
 # kickMsg: reason for kicking them.
 AbuseRatio: 3;20
 AbuseAction: ignore
 AbuseKick: '[AmpleBot] Do not abuse me or I will keep kicking you!'
+
+#
+# Spam and Flood Detection
+#
+# Actions you can do is: banip, ban, kick, warn, cancel, nothing
+
+#
+# Player Spam Detection
+#
+# SpamAction: warn,kick,ban
+# SpamWarn: 'Please do not spam!'
+# SpamKick: 'Please do not spam!'
+# SpamBan: 'Please do not spam!'
+# 
+SpamAction: warn,kick,ban
+SpamWarn: 'Please do not spam!'
+SpamKick: 'Please do not spam!'
+SpamBan: 'Your banned for spamming!'
+
+#
+# Player Chat Flood Detection
+#
+# FloodAction: ban
+# FloodRatio: AbuseRatio: 3;20
+# FloodWarn: 'Please do not flood the server!'
+# FloodKick: 'You have been kick for flooding the server!'
+#FloodBan: 'Your banned for flooding the server!'
+#
+FloodAction: warn,ban
+FloodRatio: 3;20
+FloodWarn: 'Please do not flood the server!'
+FloodKick: 'You have been kick for flooding the server!'
+FloodBan: 'Your banned for flooding the server!'
+
 
 #
 # Database Settings

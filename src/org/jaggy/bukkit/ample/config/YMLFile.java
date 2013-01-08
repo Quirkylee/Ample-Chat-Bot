@@ -124,6 +124,77 @@ public class YMLFile implements Config {
 	public String getIRCChannels() {
 		return bukkitConfig.getString("IRCChannels", defaultIRCChannels);
 	}
-	
+
+	/* (non-Javadoc)
+	 * @see org.jaggy.bukkit.ample.config.Config#getSpamAction()
+	 */
+	@Override
+	public String[] getSpamAction() {
+		return bukkitConfig.getString("SpamAction", defaultSpamAction).split(",");
+	}
+
+	/* (non-Javadoc)
+	 * @see org.jaggy.bukkit.ample.config.Config#getSpamWarn()
+	 */
+	@Override
+	public String getSpamWarn() {
+		return bukkitConfig.getString("SpamWarn", defaultSpamWarn);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.jaggy.bukkit.ample.config.Config#getSpamKick()
+	 */
+	@Override
+	public String getSpamKick() {
+		return bukkitConfig.getString("SpamKick", defaultSpamKick);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.jaggy.bukkit.ample.config.Config#getSpamBan()
+	 */
+	@Override
+	public String getSpamBan() {
+		return bukkitConfig.getString("SpamBan", defaultSpamBan);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.jaggy.bukkit.ample.config.Config#getFloodAction()
+	 */
+	@Override
+	public String[] getFloodAction() {
+		return bukkitConfig.getString("FloodAction", defaultFloodAction).split(",");
+	}
+
+	/* (non-Javadoc)
+	 * @see org.jaggy.bukkit.ample.config.Config#getFloodWarn()
+	 */
+	@Override
+	public String getFloodWarn() {
+		return bukkitConfig.getString("FloodWarn", defaultFloodWarn);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.jaggy.bukkit.ample.config.Config#getFloodKick()
+	 */
+	@Override
+	public String getFloodKick() {
+		return bukkitConfig.getString("FloodKick", defaultFloodKick);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.jaggy.bukkit.ample.config.Config#getFloodBan()
+	 */
+	@Override
+	public String getFloodBan() {
+		return bukkitConfig.getString("FloodBan", defaultFloodBan);
+	}
+	@Override
+	public Integer[] getFloodRatio() {
+		String[] ratio = bukkitConfig.getString("FloodRatio", defaultFloodRatio).split(";");
+		Integer v1 = Integer.parseInt(ratio[0]);
+		Integer v2 = Integer.parseInt(ratio[1]);
+		Integer[] ary = {v1, v2};
+		return  ary;
+	}
 
 }

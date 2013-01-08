@@ -70,6 +70,14 @@ public class SQLITE extends DB {
 			this.query("CREATE TABLE \""+this.PREFIX+"Usage\" (\"dtime\" integer, \"question\" integer," +
 					"\"player\" text(50,0));");
 		}
+		if(this.checkTable(this.PREFIX+"Spam") == false) {
+			this.query("CREATE TABLE \""+this.PREFIX+"Spam\" (\"dtime\" integer, \"action\" integer," +
+					"\"player\" text(50,0));");
+		}
+		if(this.checkTable(this.PREFIX+"Flood") == false) {
+			this.query("CREATE TABLE \""+this.PREFIX+"Flood\" (\"dtime\" integer, \"action\" integer," +
+					"\"player\" text(50,0));");
+		}
 	}
 	
 	@Override
