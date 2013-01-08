@@ -74,10 +74,9 @@ void onChat(final AsyncPlayerChatEvent event) {
 		try {
 			ResultSet rs = db.query("SELECT count(dtime) FROM "+config.getDbPrefix()+"Flood WHERE player = '"+player.getName()+"'");
 			int v = 0;
-			if(v > config.getFloodAction().length) v = (config.getFloodAction().length - 1);
-			else if(rs.getInt(1) > 0) v = rs.getInt(1);
+			if(v > config.getFloodAction().length) v = rs.getInt(1);
+			else if(rs.getInt(1) > 0) v = (config.getFloodAction().length - 1);
 			String action = config.getFloodAction()[v];
-			player.sendMessage(rs.getInt(1)+" "+action+" "+v);
 			if(action.equals("cancel")) {
 				event.setCancelled(true);
 				insertRecord( 1, player);
@@ -100,7 +99,7 @@ void onChat(final AsyncPlayerChatEvent event) {
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			//e.printStackTrace();
+			e.printStackTrace();
 		}
 	}
 }

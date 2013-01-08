@@ -76,7 +76,7 @@ SpamBan: 'Your banned for spamming!'
 #FloodBan: 'Your banned for flooding the server!'
 #
 FloodAction: warn,ban
-FloodRatio: 3;20
+FloodRatio: 5;10
 FloodWarn: 'Please do not flood the server!'
 FloodKick: 'You have been kick for flooding the server!'
 FloodBan: 'Your banned for flooding the server!'

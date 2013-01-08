@@ -23,10 +23,10 @@ public interface Config {
 	public String defaultSpamKick = "Please do not spam!";
 	public String defaultSpamBan = "Your banned for spamming!";
 	public String defaultFloodAction = "warn,kick,ban";
-	public String defaultFloodWarn = "Please do not spam!";
-	public String defaultFloodKick = "Please do not spam!";
-	public String defaultFloodBan = "Your banned for spamming!";
-	public String defaultFloodRatio = "3;20";
+	public String defaultFloodWarn = "Please do not flood!";
+	public String defaultFloodKick = "Please do not flood!";
+	public String defaultFloodBan = "Your banned for flooding!";
+	public String defaultFloodRatio = "5;10";
 	public long defaultMsgDelay = 2;
 	
 	public void save() throws Exception;
