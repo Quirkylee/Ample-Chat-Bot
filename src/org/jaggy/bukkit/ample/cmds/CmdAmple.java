@@ -33,6 +33,7 @@ public class CmdAmple implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label,
 			String[] args) {
+		if(args.length != 0) {
 		if(args[0].equals("help")) {
 			plugin.Msg(sender, "Ample Chat Bot is a chat robot that responses");
 			plugin.Msg(sender, "to key phrases people say in chat.");
@@ -59,9 +60,12 @@ public class CmdAmple implements CommandExecutor {
 			plugin.Msg(sender, " ");
 			plugin.Msg(sender, "/ampleupdate <question id> <new question or keyphrase>");
 			plugin.Msg(sender, "   Updates an existing question or keyphrase.");
-
+		} else if(args[0].equals("config") && args.length > 0) {
+			Config config = new Config();
+			config.cmd(sender, args);
+		}
 		} else {
-			plugin.Msg(sender, "The help has moved to /ample help!");
+			plugin.Msg(sender, "The help has moved!");
 			plugin.Msg(sender, "");
 			plugin.Msg(sender, "/ample help: Shows how to use the other commands.");
 			plugin.Msg(sender, "/ample config: Manages plugin configuration file.");
@@ -99,7 +103,10 @@ public class CmdAmple implements CommandExecutor {
 		 * @param args
 		 */
 		private void list(CommandSender sender, String[] args) {
-			// TODO Auto-generated method stub
+			for(int i = 0; i < flags.length; i++) {
+				String flag = flags[i];
+				plugin.Msg(sender, flag+": "+plugin.getConfig().get(flag));
+			}
 			
 		}
 
