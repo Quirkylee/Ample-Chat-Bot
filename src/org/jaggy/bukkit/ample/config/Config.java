@@ -56,4 +56,10 @@ public interface Config {
 	public Long getMsgDelay();
 	void load(Ample instance) throws Exception;
 	public Integer[] getFloodRatio();
+
+	/**
+	 * @param path
+	 * @param obj
+	 */
+	void set(String path, Object obj);
 }

@@ -80,14 +80,16 @@ public class CmdAmple implements CommandExecutor {
 				"FloodAction", "FloodRatio", "FloodWarn", "FloodKick", "FloodBan", "DbType",
 				"DbHost", "DbPort", "DbName", "DbPrefix", "DbUser", "DbPass"};
 		public void cmd(CommandSender sender, String[] args) {
-			if(args[1].equalsIgnoreCase("set")) {
-				set(sender, args);
-			} else if(args[1].equalsIgnoreCase("reload")) {
-				reload(sender, args);
-			} else if(args[1].equalsIgnoreCase("save")) {
-				save(sender, args);
-			} else if(args[1].equalsIgnoreCase("list")) {
-				list(sender, args);
+			if(args.length >= 2) {
+				if(args[1].equalsIgnoreCase("set")) {
+					set(sender, args);
+				} else if(args[1].equalsIgnoreCase("reload")) {
+					reload(sender, args);
+				} else if(args[1].equalsIgnoreCase("save")) {
+					save(sender, args);
+				} else if(args[1].equalsIgnoreCase("list")) {
+					list(sender, args);
+				} 
 			} else {
 				plugin.Msg(sender, "This command manages configuration file and settings!");
 				plugin.Msg(sender, "");
@@ -103,6 +105,8 @@ public class CmdAmple implements CommandExecutor {
 		 * @param args
 		 */
 		private void list(CommandSender sender, String[] args) {
+			plugin.Msg(sender, "Current config of bot:");
+			plugin.Msg(sender, "");
 			for(int i = 0; i < flags.length; i++) {
 				String flag = flags[i];
 				plugin.Msg(sender, flag+": "+plugin.getConfig().get(flag));

@@ -196,5 +196,8 @@ public class YMLFile implements Config {
 		Integer[] ary = {v1, v2};
 		return  ary;
 	}
-
+	@Override
+	public void set(String path, Object obj) {
+		bukkitConfig.set(path, obj);
+	}
 }

@@ -49,7 +49,7 @@ import org.jaggy.bukkit.ample.listeners.SpamListener;
 public class Ample extends JavaPlugin {
 
 
-	public final Logger log = Logger.getLogger("Minecraft");
+	public final Logger log = Logger.getLogger("AmpleChatBot");
 	private Config config;
 	private DB db = null;
 	public boolean essentialsEnable = false;
@@ -163,7 +163,7 @@ public class Ample extends JavaPlugin {
 			
 			sender.sendMessage(ChatColor.GREEN+msg);
 		}
-		else log.info("[Ample] " +msg);
+		else log.info("[AmpleChatBot] " +msg);
 	}
 	/**
 	 * Sends message to Player.
