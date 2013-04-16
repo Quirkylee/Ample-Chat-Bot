@@ -64,8 +64,6 @@ public class CmdQList implements CommandExecutor {
 				if(args.length == 0) {
 					result = db.query("SELECT * FROM "+config.getDbPrefix()+"Responses WHERE keyphrase LIKE '%'  ESCAPE \"|\";");
 				
-				} else {
-					result = db.query("SELECT * FROM "+config.getDbPrefix()+"Responses WHERE keyphrase LIKE '%"+db.escape_quotes(args[0])+"%';");
 				}
 		}
 		if(result != null) {
