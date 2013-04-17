@@ -1,7 +1,7 @@
 name: AmpleChatBot
 main: org.jaggy.bukkit.ample.Ample
 version: 1.3.3
-author: matthewl6970, licks92
+author: matthewl6970, licks92, Drepic26
 softdepend: [Essentials, MonsterIRC]
 
 
