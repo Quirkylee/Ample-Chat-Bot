@@ -46,7 +46,7 @@ public class CmdQList implements CommandExecutor {
 			String[] args) {
 		if(sender instanceof Player) {
 			Player player = (Player) sender;
-			if( player.hasPermission("ample.list") ) {
+			if( player.hasPermission("ample.qlist") ) {
 			listQuestions(sender, args);	
 			} else plugin.Error(player, "You do not have permissions to use this command.");
 		} else {
