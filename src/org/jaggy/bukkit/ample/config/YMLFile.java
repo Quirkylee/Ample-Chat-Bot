@@ -84,6 +84,12 @@ public class YMLFile implements Config {
 	public String getDisplay() {
 		return bukkitConfig.getString("Display", defaultDisplay);
 	}
+	
+	@Override
+	public String getCheckUpdate() {
+		return bukkitConfig.getString("", checkUpdate);
+		
+	}
 
 	@Override
 	public Integer[] getAbuseRatio() {

@@ -53,7 +53,12 @@ public class Ample extends JavaPlugin {
 	private Config config;
 	private DB db = null;
 	public boolean essentialsEnable = false;
+	public String checkupdate;
 	public MonsterIRCHook monsterirc;
+	
+	public String version;
+	public String newversion;
+	public String verinfo;
 	
 	public void loger(String msg) {
 		log.info("[Ample] "+msg);
@@ -61,6 +66,8 @@ public class Ample extends JavaPlugin {
 	
 	@Override
 	public void onEnable() {
+		version = getDescription().getVersion();
+		checkupdate = config.getCheckUpdate();
 		//mcstats plugin
 		try {
 		    MetricsLite metrics = new MetricsLite(this);
