@@ -86,9 +86,8 @@ public class YMLFile implements Config {
 	}
 	
 	@Override
-	public String getCheckUpdate() {
-		return bukkitConfig.getString("", checkUpdate);
-		
+	public boolean getCheckUpdate() {
+		return bukkitConfig.getBoolean("check-update", true);
 	}
 
 	@Override

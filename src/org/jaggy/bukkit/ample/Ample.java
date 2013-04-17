@@ -18,8 +18,12 @@
 
 package org.jaggy.bukkit.ample;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.logging.Logger;
 
 
@@ -45,6 +49,7 @@ import org.jaggy.bukkit.ample.hooks.MonsterIRCHook;
 import org.jaggy.bukkit.ample.listeners.FloodListener;
 import org.jaggy.bukkit.ample.listeners.ResponseListener;
 import org.jaggy.bukkit.ample.listeners.SpamListener;
+import org.jaggy.bukkit.ample.listeners.PlayerListener;
 
 public class Ample extends JavaPlugin {
 
@@ -53,7 +58,7 @@ public class Ample extends JavaPlugin {
 	private Config config;
 	private DB db = null;
 	public boolean essentialsEnable = false;
-	public String checkupdate;
+	public boolean checkupdate;
 	public MonsterIRCHook monsterirc;
 	
 	public String version;
@@ -67,7 +72,7 @@ public class Ample extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		version = getDescription().getVersion();
-		checkupdate = config.getCheckUpdate();
+		
 		//mcstats plugin
 		try {
 		    MetricsLite metrics = new MetricsLite(this);
@@ -78,6 +83,11 @@ public class Ample extends JavaPlugin {
 		}
 		//load config
 		loadConfig();
+		
+		//check update
+		setUpdateInfo();
+		if (!version.equals(newversion) && !version.contains("TEST") && !(newversion == null))
+			send("An update for Ample chat bot is available! "+"Current version: "+version+" New version: "+newversion);
 
 	    //load MonsterIRC Hook
 		monsterirc = new MonsterIRCHook(this);
@@ -106,6 +116,7 @@ public class Ample extends JavaPlugin {
 		pm.registerEvents(new ResponseListener(this), this);
 		pm.registerEvents(new SpamListener(this), this);
 		pm.registerEvents(new FloodListener(this), this);
+		pm.registerEvents(new PlayerListener(this), this);
 		
 		getCommand("ample").setExecutor(new CmdAmple(this));
 		getCommand("answer").setExecutor(new CmdAnswer(this));
@@ -172,6 +183,27 @@ public class Ample extends JavaPlugin {
 		}
 		else log.info("[AmpleChatBot] " +msg);
 	}
+	
+	public void setUpdateInfo() {
+		if (config.getCheckUpdate()) {
+			try {
+				URL url = new URL("http://sgkminecraft.beastnode.net/Drepic/Ample/version.txt");
+				BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
+				newversion = br.readLine();
+			
+				url = new URL("http://sgkminecraft.beastnode.net/Drepic/Ample/info.txt");
+				br = new BufferedReader(new InputStreamReader(url.openStream()));
+				verinfo = br.readLine();
+			
+				br.close();
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	/**
 	 * Sends message to Player.
 	 * 
@@ -180,6 +212,10 @@ public class Ample extends JavaPlugin {
 	 */
 	public void Msg (Player sender, String msg) {
 		sender.sendMessage(ChatColor.GREEN+msg);
+	}
+	
+	public void send(String message) {
+		System.out.println("[AmpleChatBot] "+message);
 	}
 
 	/**

@@ -27,6 +27,9 @@ Delay: 2
 # Anything greater then the percentage will be the response,
 Allowable: 80
 
+# If sety to false, the plugin will not check for when an update is available
+check-update: true
+
 #
 # IRC Plugin Intergration Settings (optional)
 # This requires MonsterIRC, atm!

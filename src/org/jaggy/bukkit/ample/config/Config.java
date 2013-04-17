@@ -27,7 +27,7 @@ public interface Config {
 	public String defaultFloodKick = "Please do not flood!";
 	public String defaultFloodBan = "Your banned for flooding!";
 	public String defaultFloodRatio = "5;10";
-	public String checkUpdate = "true";
+	public boolean checkUpdate = true;
 	public long defaultMsgDelay = 5;
 	
 	public void save() throws Exception;
@@ -54,7 +54,7 @@ public interface Config {
 	public String getFloodWarn();
 	public String getFloodKick();
 	public String getFloodBan();
-	public String getCheckUpdate();
+	public boolean getCheckUpdate();
 	public Long getMsgDelay();
 	void load(Ample instance) throws Exception;
 	public Integer[] getFloodRatio();
