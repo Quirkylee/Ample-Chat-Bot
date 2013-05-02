@@ -27,7 +27,7 @@ Delay: 2
 # Anything greater then the percentage will be the response,
 Allowable: 80
 
-# If sety to false, the plugin will not check for when an update is available
+# If set to false, the plugin will not check for when an update is available
 check-update: true
 
 #
@@ -54,20 +54,13 @@ AbuseKick: '[AmpleBot] Do not abuse me or I will keep kicking you!'
 #
 # Spam and Flood Detection
 #
-# Actions you can do is: banip, ban, kick, warn, cancel, nothing
+# Actions you can do are: banip, ban, kick, warn, cancel, nothing
 
 #
 # Player Spam Detection
 #
-# SpamAction: warn,kick,ban
-# SpamWarn: 'Please do not spam!'
-# SpamKick: 'Please do not spam!'
-# SpamBan: 'Please do not spam!'
-# 
-SpamAction: warn,kick,ban
 SpamWarn: 'Please do not spam!'
-SpamKick: 'Please do not spam!'
-SpamBan: 'Your banned for spamming!'
+
 
 #
 # Player Chat Flood Detection

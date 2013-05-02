@@ -131,35 +131,11 @@ public class YMLFile implements Config {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.jaggy.bukkit.ample.config.Config#getSpamAction()
-	 */
-	@Override
-	public String[] getSpamAction() {
-		return bukkitConfig.getString("SpamAction", defaultSpamAction).split(",");
-	}
-
-	/* (non-Javadoc)
 	 * @see org.jaggy.bukkit.ample.config.Config#getSpamWarn()
 	 */
 	@Override
 	public String getSpamWarn() {
 		return bukkitConfig.getString("SpamWarn", defaultSpamWarn);
-	}
-
-	/* (non-Javadoc)
-	 * @see org.jaggy.bukkit.ample.config.Config#getSpamKick()
-	 */
-	@Override
-	public String getSpamKick() {
-		return bukkitConfig.getString("SpamKick", defaultSpamKick);
-	}
-
-	/* (non-Javadoc)
-	 * @see org.jaggy.bukkit.ample.config.Config#getSpamBan()
-	 */
-	@Override
-	public String getSpamBan() {
-		return bukkitConfig.getString("SpamBan", defaultSpamBan);
 	}
 
 	/* (non-Javadoc)

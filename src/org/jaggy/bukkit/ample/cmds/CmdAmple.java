@@ -17,6 +17,7 @@
  */
 package org.jaggy.bukkit.ample.cmds;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -65,10 +66,10 @@ public class CmdAmple implements CommandExecutor {
 			config.cmd(sender, args);
 		}
 		} else {
-			plugin.Msg(sender, "The help has moved!");
+			plugin.Msg(sender, "|---Ample chat bot version "+plugin.version+"---|");
 			plugin.Msg(sender, "");
-			plugin.Msg(sender, "/ample help: Shows how to use the other commands.");
-			plugin.Msg(sender, "/ample config: Manages plugin configuration file.");
+			plugin.Msg(sender, "/ample help :"+ChatColor.DARK_GREEN+" Shows how to use the other commands.");
+			plugin.Msg(sender, "/ample config :"+ChatColor.DARK_GREEN+" Manages plugin configuration file.");
 			//plugin.Msg(sender, "/ample db: Tool to export and import database."); // NOT IMPLEMENTED YET \\
 		}
 		return true;

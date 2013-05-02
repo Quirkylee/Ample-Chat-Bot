@@ -49,3 +49,5 @@ permissions:
   description: Allows to bypass abuse routines.
  ample.update:
   description: Allows the player to see if an update is available
+ ample.url:
+  description: Allows the player to use links in chat

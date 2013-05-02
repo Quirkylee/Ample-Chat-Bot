@@ -46,10 +46,7 @@ public interface Config {
 	public String getAbuseKick();
 	public String getDisplay();
 	public String getIRCChannels();
-	public String[] getSpamAction();
 	public String getSpamWarn();
-	public String getSpamKick();
-	public String getSpamBan();
 	public String[] getFloodAction();
 	public String getFloodWarn();
 	public String getFloodKick();
