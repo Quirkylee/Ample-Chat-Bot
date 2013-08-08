@@ -45,7 +45,6 @@ import org.jaggy.bukkit.ample.config.YMLFile;
 import org.jaggy.bukkit.ample.db.DB;
 import org.jaggy.bukkit.ample.db.MYSQL;
 import org.jaggy.bukkit.ample.db.SQLITE;
-import org.jaggy.bukkit.ample.hooks.MonsterIRCHook;
 import org.jaggy.bukkit.ample.listeners.FloodListener;
 import org.jaggy.bukkit.ample.listeners.ResponseListener;
 import org.jaggy.bukkit.ample.listeners.SpamListener;
@@ -59,7 +58,6 @@ public class Ample extends JavaPlugin {
 	private DB db = null;
 	public boolean essentialsEnable = false;
 	public boolean checkupdate;
-	public MonsterIRCHook monsterirc;
 	
 	public String version;
 	public String newversion;
@@ -88,10 +86,6 @@ public class Ample extends JavaPlugin {
 		setUpdateInfo();
 		if (!version.equals(newversion) && !version.contains("TEST") && !(newversion == null))
 			send("An update for Ample chat bot is available! "+"Current version: "+version+" New version: "+newversion);
-
-	    //load MonsterIRC Hook
-		monsterirc = new MonsterIRCHook(this);
-		monsterirc.loadHook();
 		
 		//initialize db
 		if(config.getDbType().equals("SQLITE")) {

@@ -17,7 +17,6 @@
  */
 package org.jaggy.bukkit.ample.listeners;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
