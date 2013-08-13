@@ -181,13 +181,12 @@ public class Ample extends JavaPlugin {
 	public void setUpdateInfo() {
 		if (config.getCheckUpdate()) {
 			try {
-				URL url = new URL("http://sgkminecraft.beastnode.net/Drepic/Ample/version.txt");
+				URL url = new URL("https://raw.github.com/dwdcweb/Ample-Chat-Bot/master/plugin.yml");
 				BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
-				newversion = br.readLine();
-			
-				url = new URL("http://sgkminecraft.beastnode.net/Drepic/Ample/info.txt");
-				br = new BufferedReader(new InputStreamReader(url.openStream()));
-				verinfo = br.readLine();
+				for(int i = 0; i < 2; ++i)
+					  br.readLine();
+					String newversionraw = br.readLine();
+					newversion = newversionraw.replace("version: ", "");
 			
 				br.close();
 			} catch (MalformedURLException e) {
