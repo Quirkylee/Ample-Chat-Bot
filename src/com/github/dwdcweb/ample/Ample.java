@@ -135,7 +135,7 @@ public class Ample extends JavaPlugin {
 	 */
 	public void loadConfig() {
 		
-		File File = new File("plugins/Ample/config.yml");
+		File File = new File("plugins/AmpleChatBot/config.yml");
 		if( File.exists() ) {		// new-style config.yml exists?  use it
     		config = new YMLFile();
     	} else {							// neither exists yet (new installation), create and use new-style

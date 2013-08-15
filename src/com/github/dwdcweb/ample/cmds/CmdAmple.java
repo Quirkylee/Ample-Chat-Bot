@@ -17,10 +17,14 @@
  */
 package com.github.dwdcweb.ample.cmds;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.InvalidConfigurationException;
 
 import com.github.dwdcweb.ample.Ample;
 
@@ -85,10 +89,10 @@ public class CmdAmple implements CommandExecutor {
 			if(args.length >= 2) {
 				if(args[1].equalsIgnoreCase("set")) {
 					set(sender, args);
-				} else if(args[1].equalsIgnoreCase("reload")) {
-					reload(sender, args);
 				} else if(args[1].equalsIgnoreCase("save")) {
 					save(sender, args);
+				} else if(args[1].equalsIgnoreCase("reload")) {
+					reload(sender, args);
 				} else if(args[1].equalsIgnoreCase("list")) {
 					list(sender, args);
 				} 
@@ -96,10 +100,27 @@ public class CmdAmple implements CommandExecutor {
 				plugin.Msg(sender, "This command manages configuration file and settings!");
 				plugin.Msg(sender, "");
 				plugin.Msg(sender, "/ample config set <setting> <value>");
-				plugin.Msg(sender, "/ample config reload");
 				plugin.Msg(sender, "/ample config save");
+				plugin.Msg(sender, "/ample config reload");
 				plugin.Msg(sender, "/ample config list");
 			}
+		}
+
+		private void reload(CommandSender sender, String[] args) {
+			try {
+				plugin.getConfig().load("plugins/AmpleChatBot/config.yml");
+				plugin.Msg(sender, "The config was reloaded!");
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InvalidConfigurationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}
 
 		/**
@@ -121,16 +142,12 @@ public class CmdAmple implements CommandExecutor {
 		 * @param args
 		 */
 		private void save(CommandSender sender, String[] args) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		/**
-		 * @param sender
-		 * @param args
-		 */
-		private void reload(CommandSender sender, String[] args) {
-			// TODO Auto-generated method stub
+			try {
+				plugin.getConfig().save("plugins/AmpleChatBot/config.yml");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 		}
 
@@ -139,7 +156,30 @@ public class CmdAmple implements CommandExecutor {
 		 * @param args
 		 */
 		private void set(CommandSender sender, String[] args) {
-			// TODO Auto-generated method stub
+			if(args.length > 3) {
+				for(int i = 0; i < flags.length; i++) {
+					String flag = flags[i];
+					if(flag.contains(args[2])) {
+						plugin.getConfig().set(args[2], args[3]);
+						plugin.Msg(sender, "\""+args[2]+"\" was set to \""+args[3]+"\"");
+					}
+					else if(i >= flags.length) {
+						flagsAvailible(sender);
+					}
+				}
+			
+			} else {
+				flagsAvailible(sender);
+			}
+		}
+
+		private void flagsAvailible(CommandSender sender) {
+			String dflag = "";
+			for(int u = 0; u < flags.length; u++) {
+				dflag += flags[u]+", ";
+				
+			}
+			plugin.Msg(sender, "Flags Avaliable: "+dflag);
 			
 		}
 	}
