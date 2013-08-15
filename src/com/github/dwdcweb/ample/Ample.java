@@ -182,9 +182,9 @@ public class Ample extends JavaPlugin {
 	public void setUpdateInfo() {
 		if (config.getCheckUpdate()) {
 			try {
-				URL url = new URL("https://raw.github.com/dwdcweb/Ample-Chat-Bot/master/plugin.yml");
+				URL url = new URL("https://raw.github.com/dwdcweb/Ample-Chat-Bot/master/version.txt");
 				BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
-				for(int i = 0; i < 2; ++i)
+				for(int i = 0; i < 3; ++i)
 					  br.readLine();
 					String newversionraw = br.readLine();
 					newversion = newversionraw.replace("version: ", "");
