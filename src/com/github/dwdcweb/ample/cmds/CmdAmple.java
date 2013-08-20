@@ -69,13 +69,16 @@ public class CmdAmple implements CommandExecutor {
 		} else if(args[0].equals("config") && args.length > 0) {
 			Config config = new Config();
 			config.cmd(sender, args);
+		} else if(args[0].equals("db") && args.length > 0) {
+			Db db = new Db();
+			db.cmd(sender, args);
 		}
 		} else {
 			plugin.Msg(sender, "|---Ample chat bot version "+plugin.version+"---|");
 			plugin.Msg(sender, "");
 			plugin.Msg(sender, "/ample help :"+ChatColor.DARK_GREEN+" Shows how to use the other commands.");
 			plugin.Msg(sender, "/ample config :"+ChatColor.DARK_GREEN+" Manages plugin configuration file.");
-			//plugin.Msg(sender, "/ample db: Tool to export and import database."); // NOT IMPLEMENTED YET \\
+			plugin.Msg(sender, "/ample db: Tool to export and import database.");
 		}
 		return true;
 	}
@@ -180,6 +183,32 @@ public class CmdAmple implements CommandExecutor {
 				
 			}
 			plugin.Msg(sender, "Flags Avaliable: "+dflag);
+			
+		}
+	}
+	class Db {
+		public void cmd(CommandSender sender, String[] args) {
+			if(args.length >= 2) {
+				if(args[1].equalsIgnoreCase("export")) {
+					exportDb(sender);
+				} else if(args[1].equalsIgnoreCase("import")) {
+					importDb(sender, args);
+				} 
+			} else {
+				plugin.Msg(sender, "This command exports and imports the database!");
+				plugin.Msg(sender, "");
+				plugin.Msg(sender, "/ample db export");
+				plugin.Msg(sender, "/ample db import");
+			}
+		}
+
+		private void importDb(CommandSender sender, String[] args) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		private void exportDb(CommandSender sender) {
+			
 			
 		}
 	}

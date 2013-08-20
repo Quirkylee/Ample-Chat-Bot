@@ -64,8 +64,18 @@ public class SpamListener implements Listener {
 			}
 	}
 	
-	void insertRecord(int action, Player player) throws SQLException {
-		db.query("INSERT INTO "+config.getDbPrefix()+"Spam (dtime,action,player) " +
-				"VALUES ( "+db.currentEpoch()+", "+action+", '"+player.getName()+"');");
+	void insertRecord(final int action, final Player player) {
+		plugin.getServer().getScheduler().runTask(plugin, new Runnable() {
+			@Override
+			public void run() {
+		try {
+			db.query("INSERT INTO "+config.getDbPrefix()+"Spam (dtime,action,player) " +
+					"VALUES ( "+db.currentEpoch()+", "+action+", '"+player.getName()+"');");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			}
+			});
 	}
 }

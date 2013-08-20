@@ -72,41 +72,61 @@ void onChat(final AsyncPlayerChatEvent event) {
 	}
 	player.setMetadata("floodCount", new FixedMetadataValue(plugin,(player.getMetadata("floodCount").get(0).asLong() + 1)));
 	if(player.getMetadata("floodCount").get(0).asLong() >= config.getFloodRatio()[0].longValue()) {
-		try {
-			ResultSet rs = db.query("SELECT count(dtime) FROM "+config.getDbPrefix()+"Flood WHERE player = '"+player.getName()+"'");
-			int v = 0;
-			if(v > config.getFloodAction().length) v = rs.getInt(1);
-			else if(rs.getInt(1) > 0) v = (config.getFloodAction().length - 1);
-			String action = config.getFloodAction()[v];
-			if(action.equals("cancel")) {
-				event.setCancelled(true);
-				insertRecord( 1, player);
-			} else if(action.equals("warn")) {
-				event.setCancelled(true);
-				insertRecord( 2, player);
-				player.sendMessage(ChatColor.RED+""+ChatColor.BOLD+"["+config.getBotName()+"] "+config.getFloodWarn());
-			} else if(action.equals("kick")) {
-				event.setCancelled(true);
-				player.kickPlayer(ChatColor.RED+"["+config.getBotName()+"] "+config.getFloodKick());
-				insertRecord( 3, player);
-			} else if(action.equals("ban")) {
-				event.setCancelled(true);
-				Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(),"ban "+player.getName()+" "+ChatColor.RED+"["+config.getBotName()+"] "+config.getFloodBan());
-				insertRecord( 4, player);
-			} else if(action.equals("banip")) {
-				event.setCancelled(true);
-				Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(),"banip "+player.getName()+" "+ChatColor.RED+"["+config.getBotName()+"] "+config.getFloodBan());
-				insertRecord( 5, player);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		checkRecords(event);
 	}
 }
+void checkRecords(final AsyncPlayerChatEvent event) {
+	final Player player = event.getPlayer();
+	plugin.getServer().getScheduler().runTask(plugin, new Runnable() {
+		@Override
+		public void run() {
+			try {
+				ResultSet rs = db.query("SELECT count(dtime) FROM "+config.getDbPrefix()+"Flood WHERE player = '"+player+"'");
+				int v = 0;
+				if(v > config.getFloodAction().length) v = rs.getInt(1);
+				else if(rs.getInt(1) > 0) v = (config.getFloodAction().length - 1);
+				String action = config.getFloodAction()[v];
+				if(action.equals("cancel")) {
+					event.setCancelled(true);
+					insertRecord( 1, player);
+				} else if(action.equals("warn")) {
+					event.setCancelled(true);
+					insertRecord( 2, player);
+					player.sendMessage(ChatColor.RED+""+ChatColor.BOLD+"["+config.getBotName()+"] "+config.getFloodWarn());
+				} else if(action.equals("kick")) {
+					event.setCancelled(true);
+					player.kickPlayer(ChatColor.RED+"["+config.getBotName()+"] "+config.getFloodKick());
+					insertRecord( 3, player);
+				} else if(action.equals("ban")) {
+					event.setCancelled(true);
+					Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(),"ban "+player.getName()+" "+ChatColor.RED+"["+config.getBotName()+"] "+config.getFloodBan());
+					insertRecord( 4, player);
+				} else if(action.equals("banip")) {
+					event.setCancelled(true);
+					Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(),"banip "+player.getName()+" "+ChatColor.RED+"["+config.getBotName()+"] "+config.getFloodBan());
+					insertRecord( 5, player);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	});
+	
+}
 
-void insertRecord(int action, Player player) throws SQLException {
-	db.query("INSERT INTO "+config.getDbPrefix()+"Flood (dtime,action,player) " +
-			"VALUES ( "+db.currentEpoch()+", "+action+", '"+player.getName()+"');");
+void insertRecord(final int action, final Player player) {
+	plugin.getServer().getScheduler().runTask(plugin, new Runnable() {
+		@Override
+		public void run() {
+	try {
+		db.query("INSERT INTO "+config.getDbPrefix()+"Flood (dtime,action,player) " +
+				"VALUES ( "+db.currentEpoch()+", "+action+", '"+player.getName()+"');");
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+		}
+	});
 }
 }
