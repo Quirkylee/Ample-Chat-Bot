@@ -17,14 +17,18 @@
  */
 package com.github.dwdcweb.ample.cmds;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.InvalidConfigurationException;
+import org.yaml.snakeyaml.Yaml;
 
 import com.github.dwdcweb.ample.Ample;
 
@@ -72,13 +76,13 @@ public class CmdAmple implements CommandExecutor {
 		} else if(args[0].equals("db") && args.length > 0) {
 			Db db = new Db();
 			db.cmd(sender, args);
-		}
+			}
 		} else {
 			plugin.Msg(sender, "|---Ample chat bot version "+plugin.version+"---|");
 			plugin.Msg(sender, "");
 			plugin.Msg(sender, "/ample help :"+ChatColor.DARK_GREEN+" Shows how to use the other commands.");
 			plugin.Msg(sender, "/ample config :"+ChatColor.DARK_GREEN+" Manages plugin configuration file.");
-			plugin.Msg(sender, "/ample db: Tool to export and import database.");
+			plugin.Msg(sender, "/ample db:"+ChatColor.DARK_GREEN+" Tool to export and import database.");
 		}
 		return true;
 	}
@@ -192,7 +196,12 @@ public class CmdAmple implements CommandExecutor {
 				if(args[1].equalsIgnoreCase("export")) {
 					exportDb(sender);
 				} else if(args[1].equalsIgnoreCase("import")) {
-					importDb(sender, args);
+					try {
+						importDb(sender, args);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				} 
 			} else {
 				plugin.Msg(sender, "This command exports and imports the database!");
@@ -202,13 +211,21 @@ public class CmdAmple implements CommandExecutor {
 			}
 		}
 
-		private void importDb(CommandSender sender, String[] args) {
-			// TODO Auto-generated method stub
+		private void importDb(CommandSender sender, String[] args) throws IOException {
+			File File = new File("plugins/AmpleChatBot/db.yml");
+			if( File.exists() ) {	
+				InputStream input = new FileInputStream(new File(
+						"plugins/AmpleChatBot/db.yml"));
+				Yaml yaml = new Yaml();
+				for (Object data : yaml.loadAll(input)) {
+					plugin.Msg(sender, data.toString());
+				}
+				input.close();
+			}
 			
 		}
 
 		private void exportDb(CommandSender sender) {
-			
 			
 		}
 	}

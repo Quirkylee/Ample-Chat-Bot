@@ -19,13 +19,14 @@
 package com.github.dwdcweb.ample;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.logging.Logger;
-
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -33,7 +34,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.github.dwdcweb.ample.MetricsLite;
 import com.github.dwdcweb.ample.cmds.CmdAmple;
 import com.github.dwdcweb.ample.cmds.CmdAnswer;
 import com.github.dwdcweb.ample.cmds.CmdDelete;
@@ -65,7 +65,7 @@ public class Ample extends JavaPlugin {
 	public String verinfo;
 	
 	public void loger(String msg) {
-		log.info("[Ample] "+msg);
+		log.info("[AmpleChatBot] "+msg);
 	}
 	
 	@Override
@@ -83,6 +83,8 @@ public class Ample extends JavaPlugin {
 		//load config
 		loadConfig();
 		
+		//create the db.yml example
+		createDbYml();
 		//check update
 		setUpdateInfo();
 		if (!version.equals(newversion) && !version.contains("TEST") && !(newversion == null))
@@ -163,6 +165,24 @@ public class Ample extends JavaPlugin {
 	 */
 	public DB getDB() {
 		return db;
+	}
+	
+	void createDbYml() {
+		File File = new File("plugins/AmpleChatBot/db.yml");
+		if( !File.exists() ) {
+			try {
+				send("Creating the example db.yml file for the first time! You can now use that file with /ample db import or /ample db export");
+				File.createNewFile();
+				String content ="\"Can I be op\":\n\tanswer: 'Sorry! We only op people we trust!'";
+				FileWriter fw = new FileWriter(File.getAbsoluteFile());
+				BufferedWriter bw = new BufferedWriter(fw);
+				bw.write(content);
+				bw.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	/**
