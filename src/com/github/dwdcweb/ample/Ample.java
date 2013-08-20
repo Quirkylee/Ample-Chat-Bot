@@ -173,7 +173,7 @@ public class Ample extends JavaPlugin {
 			try {
 				send("Creating the example db.yml file for the first time! You can now use that file with /ample db import or /ample db export");
 				File.createNewFile();
-				String content ="\"Can I be op\":\n\tanswer: 'Sorry! We only op people we trust!'";
+				String content ="\"Can I be op\":\n   answer: 'Sorry! We only op people we trust!'\n   permission: 'ample.group.*'";
 				FileWriter fw = new FileWriter(File.getAbsoluteFile());
 				BufferedWriter bw = new BufferedWriter(fw);
 				bw.write(content);
