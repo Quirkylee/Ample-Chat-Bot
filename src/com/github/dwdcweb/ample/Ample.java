@@ -179,7 +179,6 @@ public class Ample extends JavaPlugin {
 				bw.write(content);
 				bw.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -204,12 +203,13 @@ public class Ample extends JavaPlugin {
 			try {
 				URL url = new URL("https://raw.github.com/dwdcweb/Ample-Chat-Bot/master/version.txt");
 				BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
-				for(int i = 0; i < 3; ++i)
-					  br.readLine();
+				if (br != null) {
+					for(int i = 0; i < 3; ++i)
+						br.readLine();
 					String newversionraw = br.readLine();
-					newversion = newversionraw.replace("version: ", "");
-			
-				br.close();
+						newversion = newversionraw.replace("version: ", "");
+					br.close();
+				}
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
