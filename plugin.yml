@@ -1,6 +1,6 @@
 name: AmpleChatBot
 main: com.github.dwdcweb.ample.Ample
-version: 1.5
+version: 1.4.2
 author: matthewl6970, licks92, Drepic26
 softdepend: [Essentials]
 
