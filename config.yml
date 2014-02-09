@@ -27,8 +27,8 @@ Delay: 2
 # Anything greater then the percentage will be the response,
 Allowable: 80
 
-# If set to false, the plugin will not check for when an update is available
-check-update: true
+# If set to false, the plugin will not automatically download new updates
+auto-update: true
 
 #
 # IRC Plugin Intergration Settings (optional)

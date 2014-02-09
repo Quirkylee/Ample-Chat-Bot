@@ -51,7 +51,7 @@ public interface Config {
 	public String getFloodWarn();
 	public String getFloodKick();
 	public String getFloodBan();
-	public boolean getCheckUpdate();
+	public boolean getAutoUpdate();
 	public Long getMsgDelay();
 	void load(Ample instance) throws Exception;
 	public Integer[] getFloodRatio();

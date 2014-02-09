@@ -33,7 +33,7 @@ import com.github.dwdcweb.ample.utils.FormatChat;
  */
 public class CmdSay implements CommandExecutor {
 
-	private Ample plugin = new Ample();
+	private Ample plugin;
 	private Config config;
 	
 	public CmdSay(Ample instance) {

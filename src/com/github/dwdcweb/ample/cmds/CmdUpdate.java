@@ -31,7 +31,7 @@ import com.github.dwdcweb.ample.utils.Misc;
 
 public class CmdUpdate implements CommandExecutor {
 	
-	private Ample plugin = new Ample();
+	private Ample plugin;
 	private DB db;
 	private Config config;
 	

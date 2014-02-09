@@ -29,7 +29,7 @@ import com.github.dwdcweb.ample.db.DB;
 
 public class CmdDelete implements CommandExecutor {
 
-	private Ample plugin = new Ample();
+	private Ample plugin;
 	private DB db;
 	private Config config;
 	

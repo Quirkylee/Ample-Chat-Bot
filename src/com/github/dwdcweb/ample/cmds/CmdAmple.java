@@ -34,7 +34,7 @@ import com.github.dwdcweb.ample.Ample;
 
 public class CmdAmple implements CommandExecutor {
 
-	private Ample plugin = new Ample();
+	private Ample plugin;
 
 	public CmdAmple(Ample instance) {
 		plugin = instance;

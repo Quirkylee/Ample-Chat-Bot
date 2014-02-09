@@ -34,7 +34,7 @@ import com.github.dwdcweb.ample.utils.Misc;
 
 public class CmdAnswer implements CommandExecutor {
 	
-	private Ample plugin = new Ample();
+	private Ample plugin;
 	private DB db;
 	private Config config;
 	
