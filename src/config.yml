@@ -1,0 +1,102 @@
+# Ample Auto Responder - config.yml
+#
+# To enable a feature just uncomment it.
+
+#
+# General Settings
+#
+
+# BotName is what users see in chat as the player name.
+BotName: 'AmpleBot'
+
+# Message Display:
+# %botname = BotName
+# %player = Player invoking the question
+# %message = Message the bot sends to players.
+# * Chat Colors and formating is supported!
+Display: '<%botname> %message'
+
+# Response Delay
+# Allows you to set how long the bot will wait to respond in server ticks.
+#   - The Default is 2 server ticks.
+#   - There are 20 ticks per second.
+Delay: 2
+
+# Acceptable response rate in percentage:
+# Acceptable range 0-100
+# Anything greater then the percentage will be the response,
+Allowable: 80
+
+# If set to false, the plugin will not automatically download new updates
+auto-update: true
+
+#
+# IRC Plugin Intergration Settings (optional)
+# This requires MonsterIRC, atm!
+#
+# Send to one IRC Channel:
+IRCChannels: '#AmpleChatBot'
+# Send to Multiple IRC channels
+#IRCChannels: '#AmpleChatBot,#chat2'
+
+
+#
+# Anti-Abuse Settings For Bot:
+# Protects bot from people looking to abuse it.
+#
+# AbuseRatio: Triggered Responses;seconds
+# Action: kick|mute|ignore
+# kickMsg: reason for kicking them.
+AbuseRatio: 3;20
+AbuseAction: ignore
+AbuseKick: '[AmpleBot] Do not abuse me or I will keep kicking you!'
+
+#
+# Spam and Flood Detection
+#
+# Actions you can do are: banip, ban, kick, warn, cancel, nothing
+
+#
+# Player Spam Detection
+#
+SpamWarn: 'Please do not spam!'
+
+
+#
+# Player Chat Flood Detection
+#
+# FloodAction: ban
+# FloodRatio: AbuseRatio: 3;20
+# FloodWarn: 'Please do not flood the server!'
+# FloodKick: 'You have been kick for flooding the server!'
+#FloodBan: 'Your banned for flooding the server!'
+#
+FloodAction: warn,ban
+FloodRatio: 5;10
+FloodWarn: 'Please do not flood the server!'
+FloodKick: 'You have been kick for flooding the server!'
+FloodBan: 'Your banned for flooding the server!'
+
+
+#
+# Database Settings
+#
+
+#  Supports Database types:
+#    - MYSQL
+#    - SQLITE
+
+# SQLite
+DbType: 'SQLITE'
+DbName: 'Ample'
+DbPrefix: 'Ample_'
+DbHost: 'plugins/AmpleChatBot/'
+
+# MYSQL
+#DbType: MYSQL
+#DbHost: 'localhost'
+#DbPort: 3306
+#DbName: 'minecraft'
+#DbPrefix: 'Ample_'
+#DbUser: 'minecraft'
+#DbPass: ''

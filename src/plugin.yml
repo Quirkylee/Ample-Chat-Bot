@@ -1,0 +1,53 @@
+name: AmpleChatBot
+main: com.github.dwdcweb.ample.Ample
+version: 1.4.1
+author: matthewl6970, licks92, Drepic26
+softdepend: [Essentials]
+
+
+commands:
+ answer:
+  description: Sets the response to Question ID.
+  usage: /<command> <QID> <answer>
+  aliases: [ampa, aa]
+ question:
+  description: Adds question or key phrase.
+  usage: /<command> <question or key phrase>
+  aliases: [ampq, aq]
+ qlist:
+  description: lists question or key phrase.
+  usage: /<command> [QID][question][keyphrase]
+  aliases: [ampl, al]
+ delquestion:
+  description: deletes questions or key phrases.
+  usage: /<command> <QID>
+  aliases: [ampd, ad]
+ amplesay:
+  description:  Allows to use say command.
+  usage: /<command> <messageD>
+  aliases: [amps, as]
+ ample:
+  description: No longer just a Displays help for the Ample plugin.
+  usage: /<command> <subcommand>
+ ampleupdate:
+  description:  Updates an existing question or keyphrase.
+  usage: /<command> <question id> <new question or keyphrase>
+  aliases: [ampu, au]
+
+permissions:
+ ample.invoke:
+  description: Allows people to invoke responses.
+ ample.edit:
+  description: Allows to editing/updating/adding of questions and answers.
+ ample.qlist:
+  description: Allows to view the list of questions.
+ ample.delete:
+  description: Allows to delete questions.
+ ample.say:
+  description: Allows to use say command.
+ ample.allowabuse:
+  description: Allows to bypass abuse routines.
+ ample.update:
+  description: Allows the player to see if an update is available
+ ample.url:
+  description: Allows the player to use links in chat
