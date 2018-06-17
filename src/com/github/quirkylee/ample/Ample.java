@@ -68,14 +68,6 @@ public class Ample extends JavaPlugin {
 	public void onEnable() {
 		version = getDescription().getVersion();
 
-		// mcstats plugin
-		try {
-			MetricsLite metrics = new MetricsLite(this);
-			metrics.start();
-		} catch (IOException e) {
-			e.printStackTrace();
-			// Failed to submit the stats :-(
-		}
 		// load config
 		loadConfig();
 
