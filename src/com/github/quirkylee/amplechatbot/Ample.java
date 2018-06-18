@@ -47,10 +47,11 @@ import com.github.quirkylee.amplechatbot.listeners.PlayerListener;
 import com.github.quirkylee.amplechatbot.listeners.ResponseListener;
 import com.github.quirkylee.amplechatbot.listeners.SpamListener;
 import com.github.quirkylee.amplechatbot.utils.Updater;
+import java.util.logging.Level;
 
 public class Ample extends JavaPlugin {
 
-	public final Logger log = Logger.getLogger("AmpleChatBot");
+	public static Logger log = Logger.getLogger("AmpleChatBot");
 	private Config config;
 	private DB db = null;
 	public boolean essentialsEnable = false;
@@ -61,7 +62,7 @@ public class Ample extends JavaPlugin {
 	public String verinfo;
 
 	public void loger(String msg) {
-		log.info("[AmpleChatBot] " + msg);
+		log.log(Level.INFO, "[AmpleChatBot] {0}", msg);
 	}
 
 	@Override
@@ -135,7 +136,6 @@ public class Ample extends JavaPlugin {
 			config.load(this);
 		} catch (Exception e) {
 			loger("an error occured while trying to load the config file.");
-			e.printStackTrace();
 		}
 
 	}

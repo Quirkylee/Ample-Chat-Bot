@@ -1,7 +1,7 @@
 name: AmpleChatBot
-main: com.github.dwdcweb.amplechatbot.Ample
+main: com.github.quirkylee.amplechatbot.Ample
 version: 1.4.1
-author: matthewl6970, licks92, Drepic26
+author: quirkylee, licks92, Drepic26
 softdepend: [Essentials]
 
 

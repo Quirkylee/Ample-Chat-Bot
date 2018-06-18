@@ -53,8 +53,10 @@ public interface Config {
 	public String getFloodBan();
 	public boolean getAutoUpdate();
 	public Long getMsgDelay();
-	void load(Ample instance) throws Exception;
-	public Integer[] getFloodRatio();
+
+    void load(Ample instance) throws Exception;
+    
+    public Integer[] getFloodRatio();
 
 	/**
 	 * @param path

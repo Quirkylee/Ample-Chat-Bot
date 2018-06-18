@@ -18,16 +18,14 @@
 
 package com.github.quirkylee.amplechatbot.config;
 
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.plugin.java.JavaPlugin;
-
 import com.github.quirkylee.amplechatbot.Ample;
+import org.bukkit.configuration.file.FileConfiguration;
 
 public class YMLFile implements Config {
 
-	private JavaPlugin plugin;
+	private Ample plugin;
 	private FileConfiguration bukkitConfig;
-	
+        
 	@Override
 	public void load(Ample instance) {
 		plugin = instance;
@@ -116,7 +114,7 @@ public class YMLFile implements Config {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.github.dwdcweb.ample.config.Config#getAllowable()
+	 * @see com.github.quirkylee.amplechatbot.config.Config#getAllowable()
 	 */
 	@Override
 	public Double getAllowable() {
@@ -124,7 +122,7 @@ public class YMLFile implements Config {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.github.dwdcweb.ample.config.Config#getIRCChannels()
+	 * @see com.github.quirkylee.amplechatbot.config.Config#getIRCChannels()
 	 */
 	@Override
 	public String getIRCChannels() {
@@ -132,7 +130,7 @@ public class YMLFile implements Config {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.github.dwdcweb.ample.config.Config#getSpamWarn()
+	 * @see com.github.quirkylee.amplechatbot.config.Config#getSpamWarn()
 	 */
 	@Override
 	public String getSpamWarn() {
@@ -140,7 +138,7 @@ public class YMLFile implements Config {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.github.dwdcweb.ample.config.Config#getFloodAction()
+	 * @see com.github.quirkylee.amplechatbot.config.Config#getFloodAction()
 	 */
 	@Override
 	public String[] getFloodAction() {
@@ -148,7 +146,7 @@ public class YMLFile implements Config {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.github.dwdcweb.ample.config.Config#getFloodWarn()
+	 * @see com.github.quirkylee.amplechatbot.config.Config#getFloodWarn()
 	 */
 	@Override
 	public String getFloodWarn() {
@@ -156,7 +154,7 @@ public class YMLFile implements Config {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.github.dwdcweb.ample.config.Config#getFloodKick()
+	 * @see com.github.quirkylee.amplechatbot.config.Config#getFloodKick()
 	 */
 	@Override
 	public String getFloodKick() {
@@ -164,7 +162,7 @@ public class YMLFile implements Config {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.github.dwdcweb.ample.config.Config#getFloodBan()
+	 * @see com.github.quirkylee.amplechatbot.config.Config#getFloodBan()
 	 */
 	@Override
 	public String getFloodBan() {
