@@ -1,3 +1,6 @@
+1.4.1:
+  * Updated to 1.12.2
+
 1.3.3:
   * Add check to listener to see if chat is cancelled. As Faction chat does that!
   * Added spam detector and filter

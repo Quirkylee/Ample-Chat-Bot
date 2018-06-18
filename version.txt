@@ -1,4 +1,0 @@
-This text file is for the most recent version (once approved on dev bukkit)
-when the new version is approved, change the version number here
-----------------
-version: 1.4.0
